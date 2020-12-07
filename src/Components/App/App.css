@@ -1,0 +1,23 @@
+.App {
+  text-align: center;
+  background-color: #582c83;
+}
+
+.App-header {
+  font-family: Oswald, sans-serif;
+  min-height:500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8em;
+  color: white;
+  font-weight: bold;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.logo {
+  max-height: 200px;
+}
