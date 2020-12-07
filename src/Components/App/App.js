@@ -5,10 +5,7 @@ import logo from './furmanLogo.png';
 import { GameInput } from '../GameInput/GameInput';
 import { Scores } from '../Scores/Scores';
 
-
-
-
-function App() {
+const App = () => {
   const submit = (players) => {
     console.log(players)
   }
