@@ -7,7 +7,8 @@ import { Scores } from '../Scores/Scores';
 
 const App = () => {
   const submit = (players) => {
-    console.log(players)
+    console.log(players);
+    players = window.localStorage; 
   }
   return (
     <div className="App">
