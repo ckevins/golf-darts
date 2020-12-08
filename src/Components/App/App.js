@@ -4,11 +4,11 @@ import './App.css';
 import logo from './furmanLogo.png';
 import { GameInput } from '../GameInput/GameInput';
 import { Scores } from '../Scores/Scores';
+import { CreatePlayerProfile } from '../CreatePlayerProfile/CreatePlayerProfile';
 
 const App = () => {
   const submit = (players) => {
     console.log(players);
-    players = window.localStorage; 
   }
   return (
     <div className="App">
@@ -19,6 +19,7 @@ const App = () => {
         </p>
       </header>
       <GameInput onSubmit={submit}/>
+      <CreatePlayerProfile />
       <Scores />
     </div>
   );

@@ -10,8 +10,7 @@ export class GameInput extends React.Component {
         this.state = {
             players: [
                 {name: "",
-                scores: new Array(18).fill(0),
-                total: 0}
+                scores: new Array(18).fill(0)}
             ]
         }
         this.addPlayer = this.addPlayer.bind(this);
@@ -25,7 +24,7 @@ export class GameInput extends React.Component {
                 players: [...state.players,
                     {name: "",
                     scores: new Array(18).fill(0),
-                    total: 0}
+                    }
                 ]
             }
         })

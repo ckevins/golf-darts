@@ -56,7 +56,7 @@ export class Scores extends React.Component {
                                     return (
                                         <tr>
                                             <td>Game {i+1}</td>
-                                            {s.map((holeScore, i2) => <td key={i2}>{holeScore}</td>)}
+                                            {s.map((holeScore, i2) => <td key={i*18+i2}>{holeScore}</td>)}
                                             <td>{s.reduce((a,b) => a + b)}</td>
                                         </tr>
                                     )
