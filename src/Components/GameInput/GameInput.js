@@ -59,8 +59,7 @@ export class GameInput extends React.Component {
                                 } else {
                                     return s
                                 }
-                            }),
-                            total: p.total + parseInt(event.target.value)
+                            })
                         }
                     } else {
                         return p
@@ -104,7 +103,7 @@ export class GameInput extends React.Component {
                                         </td>
                                     )
                                  })}
-                                 <td>{p.total || 0}</td>
+                                 <td>{p.scores.reduce((a,b)=> a + b)}</td>
                             </tr>
                         ))}
                     </tbody>
