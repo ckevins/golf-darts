@@ -5,9 +5,15 @@ import logo from './furmanLogo.png';
 import { GameInput } from '../GameInput/GameInput';
 import { Scores } from '../Scores/Scores';
 
-const App = () => {
-  const submit = (players) => {
-    console.log(players);
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      players: JSON.parse(localStorage.getItem('players'))
+    };
+    this.submit = this.submit.bind(this);
+  }
+  submit(players) {
     const savedPlayers = JSON.parse(localStorage.getItem('players'));
     players.map(player => {
       savedPlayers.map(savedPlayer => {
@@ -21,19 +27,22 @@ const App = () => {
       return savedPlayers;
     });
     localStorage.setItem('players', JSON.stringify(savedPlayers));
+    this.setState( {players: JSON.parse(localStorage.getItem('players'))} ); 
   }
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} alt="Furman Logo" className="logo"/>
-        <p>
-          Golf Darts
-        </p>
-      </header>
-      <GameInput onSubmit={submit}/>
-      <Scores />
-    </div>
-  );
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} alt="Furman Logo" className="logo"/>
+          <h1>
+            Golf Darts
+          </h1>
+        </header>
+        <GameInput onSubmit={this.submit}/>
+        <Scores players={this.state.players} className="score-sheet"/>
+      </div>
+    );
+  }
 }
 
 export default App;

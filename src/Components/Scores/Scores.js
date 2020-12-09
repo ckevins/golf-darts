@@ -7,23 +7,7 @@ export class Scores extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            players: [
-                {
-                    name: "Minnie",
-                    scores: [[1,2,3,4,5,6,5,4,3,2,1,2,3,4,5,6,5,4],
-                            [1,2,3,4,5,6,5,4,3,2,1,2,3,4,5,6,5,3]]
-                },
-                {
-                    name: "Rhodie",
-                    scores: [[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],
-                            [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3]]
-                },
-                {
-                    name: "Cello",
-                    scores: [[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5],
-                            [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]]
-                }
-            ],
+            players: this.props.players,
             selection: -1
         };
         this.selectPlayer = this.selectPlayer.bind(this);
@@ -36,7 +20,7 @@ export class Scores extends React.Component {
         return (
             <div className="print">
                 <h2>Print Score Sheets</h2>
-                <label for="player-select">Choose a darter:</label>
+                <label className="select" for="player-select">Choose a darter:</label>
                 <select name="players" id="player-select" onChange={this.selectPlayer} value={this.state.selection}>
                     <option value={-1}>--Please choose a darter--</option>
                     {this.state.players.map((player, i)=> <option value={i}>{player.name}</option>)}

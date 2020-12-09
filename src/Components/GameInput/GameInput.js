@@ -4,6 +4,13 @@ import _ from 'lodash';
 import { CreatePlayerProfile } from '../CreatePlayerProfile/CreatePlayerProfile';
 export const nums = _.range(1, 19);
 
+const initialState = {
+    players: [
+        {name: "",
+        scores: new Array(18).fill(0)}
+    ],
+    availablePlayers: JSON.parse(window.localStorage.getItem('players'))
+};
 export class GameInput extends React.Component {
     constructor(props) {
         super(props);
@@ -78,7 +85,7 @@ export class GameInput extends React.Component {
                 <table>
                     <thead>
                         <tr>
-                            <label className="name-column" for="player-select">Player</label>
+                            <th className="name-column">Player</th>
                             {nums.map(n=> <th key={n}>{n}</th>)}
                             <th>Score</th>
                         </tr>
@@ -96,14 +103,6 @@ export class GameInput extends React.Component {
                                             return <option>{playerObj.name}</option>
                                         })}
                                     </select>
-                                    {/* <input 
-                                        className="name-input" 
-                                        id="name" 
-                                        type="text" 
-                                        placeholder="Name" 
-                                        value={p.name}
-                                        onChange={event => this.handleNameChange(event, i)}
-                                    /> */}
                                 </td>
                                 {p.scores.map((score, si) => {
                                     return (
@@ -127,9 +126,11 @@ export class GameInput extends React.Component {
                 </button>
                 <button 
                     className="button" 
-                    onClick={()=> this.props.onSubmit(this.state.players)}>Submit
+                    onClick={()=> {
+                        this.props.onSubmit(this.state.players);
+                        this.setState(initialState)}}>Submit
                 </button>
-                <CreatePlayerProfile onPlayerCreation={this.updateAvailablePlayers}/>
+                <CreatePlayerProfile className="create-player" onPlayerCreation={this.updateAvailablePlayers}/>
             </div>
         )
     }

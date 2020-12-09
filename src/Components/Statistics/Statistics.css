@@ -1,0 +1,9 @@
+h2 {
+    text-align: center;
+}
+
+.stats p {
+    text-align: left;
+    margin: 0 0 0 42%;
+    font-size: 2em;
+}
