@@ -1,7 +1,7 @@
 import React from 'react';
 import './GameInput.css';
 import _ from 'lodash';
-
+import { CreatePlayerProfile } from '../CreatePlayerProfile/CreatePlayerProfile';
 export const nums = _.range(1, 19);
 
 export class GameInput extends React.Component {
@@ -11,11 +11,13 @@ export class GameInput extends React.Component {
             players: [
                 {name: "",
                 scores: new Array(18).fill(0)}
-            ]
+            ],
+            availablePlayers: JSON.parse(window.localStorage.getItem('players'))
         }
         this.addPlayer = this.addPlayer.bind(this);
-        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handleNameSelection = this.handleNameSelection.bind(this);
         this.handleScoreChange = this.handleScoreChange.bind(this);
+        this.updateAvailablePlayers = this.updateAvailablePlayers.bind(this);
     }
     addPlayer() {
         console.log("Add Player Clicked");
@@ -29,7 +31,7 @@ export class GameInput extends React.Component {
             }
         })
     }
-    handleNameChange(e, index) {
+    handleNameSelection(e, index) {
         this.setState(state => {
             return {
                 players: state.players.map((p, i) => {
@@ -67,13 +69,16 @@ export class GameInput extends React.Component {
             }
         })
     }
+    updateAvailablePlayers(newPlayer) {
+        this.setState( {availablePlayers: JSON.parse(window.localStorage.getItem('players'))} )
+    }
     render() {
         return (
             <div className="input-table">
                 <table>
                     <thead>
                         <tr>
-                            <th className="name-column">Player</th>
+                            <label className="name-column" for="player-select">Player</label>
                             {nums.map(n=> <th key={n}>{n}</th>)}
                             <th>Score</th>
                         </tr>
@@ -82,14 +87,23 @@ export class GameInput extends React.Component {
                         {this.state.players.map((p,i) => (
                             <tr key={i}>
                                 <td>
-                                    <input 
+                                    <select 
+                                        name="player-select" 
+                                        id="player-select" 
+                                        onChange={event => this.handleNameSelection(event,i)} >
+                                        <option value={-1}>Select: </option>
+                                        {this.state.availablePlayers.map(playerObj => {
+                                            return <option>{playerObj.name}</option>
+                                        })}
+                                    </select>
+                                    {/* <input 
                                         className="name-input" 
                                         id="name" 
                                         type="text" 
                                         placeholder="Name" 
                                         value={p.name}
                                         onChange={event => this.handleNameChange(event, i)}
-                                    />
+                                    /> */}
                                 </td>
                                 {p.scores.map((score, si) => {
                                     return (
@@ -115,6 +129,7 @@ export class GameInput extends React.Component {
                     className="button" 
                     onClick={()=> this.props.onSubmit(this.state.players)}>Submit
                 </button>
+                <CreatePlayerProfile onPlayerCreation={this.updateAvailablePlayers}/>
             </div>
         )
     }

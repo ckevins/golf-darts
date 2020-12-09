@@ -25,11 +25,13 @@ export class CreatePlayerProfile extends React.Component {
             const playersString = JSON.stringify(players);
             localStorage.setItem('players', playersString);
             console.log('if block ran');
+            this.props.onPlayerCreation();
             alert('Player Created! You can now find him in the player selection menu.')
         } else {
             const newPlayerString = JSON.stringify(newPlayer);
             localStorage.setItem('players',`[${newPlayerString}]`);
             console.log('else block ran');
+            this.props.onPlayerCreation();
             alert('Player Created! You can now find him in the player selection menu.')
         }
     }

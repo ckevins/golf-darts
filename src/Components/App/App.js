@@ -19,7 +19,6 @@ const App = () => {
         </p>
       </header>
       <GameInput onSubmit={submit}/>
-      <CreatePlayerProfile />
       <Scores />
     </div>
   );
