@@ -21,10 +21,6 @@ const getPersonalBest = (scores) => {
 }
 
 export class Statistics extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    
     render () {
         return (
             <div>
