@@ -143,6 +143,14 @@ const getRankList = (nums, scores) => {
     });
 }
 
+const checkClass = (holeScore) => {
+    if (holeScore < 4) {
+        return "red"
+    } else {
+        return "blue"
+    }
+}
+
 export class Statistics extends React.Component {
     render () {
         const scores = this.props.player.scores;
@@ -238,7 +246,7 @@ export class Statistics extends React.Component {
                         return (
                             <tr>
                                 <th>{hole}</th>
-                                <td>{holeArray[0]}</td>
+                                <td className={checkClass(holeArray[0])}>{holeArray[0]}</td>
                                 <td>{holeArray[1]}</td>
                                 <td>{holeArray[2]}</td>
                                 <td>{holeArray[3]}</td>
