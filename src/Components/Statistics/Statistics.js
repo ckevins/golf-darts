@@ -44,24 +44,19 @@ const getOverParPercentage = (scores) => {
 }
 
 export class Statistics extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            scores: this.props.player.scores
-        }
-    }
     render () {
+        const scores = this.props.player.scores;
         return (
             <div className="stats">
                 <h2>Game Total Statistics</h2> 
-                <p>Games Played: {this.state.scores.length}</p>
-                <p>Total Score Average: {getAverage(this.state.scores)}</p>
-                <p>Personal Best: {getPersonalBest(this.state.scores)}</p>
-                <p>Personal Worst: {getPersonalWorst(this.state.scores)}</p>
-                <p>Games Under Par: {getUnderParTotal(this.state.scores)}</p>
-                <p>Games Under Par %: {getUnderParPercentage(this.state.scores)}%</p>
-                <p>Games Over Par: {getOverParTotal(this.state.scores)}</p>
-                <p>Games Over Par %: {getOverParPercentage(this.state.scores)}%</p>
+                <p>Games Played: {scores.length}</p>
+                <p>Total Score Average: {getAverage(scores)}</p>
+                <p>Personal Best: {getPersonalBest(scores)}</p>
+                <p>Personal Worst: {getPersonalWorst(scores)}</p>
+                <p>Games Under Par: {getUnderParTotal(scores)}</p>
+                <p>Games Under Par %: {getUnderParPercentage(scores)}%</p>
+                <p>Games Over Par: {getOverParTotal(scores)}</p>
+                <p>Games Over Par %: {getOverParPercentage(scores)}%</p>
             </div>
         )
     }

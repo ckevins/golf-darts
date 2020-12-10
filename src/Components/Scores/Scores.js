@@ -11,9 +11,48 @@ export class Scores extends React.Component {
             selection: -1
         };
         this.selectPlayer = this.selectPlayer.bind(this);
+        this.checkScores = this.checkScores.bind(this);
     }
     selectPlayer(event) {
         this.setState ({selection: event.target.value});
+    }
+    
+    checkScores(player) {
+        if (this.state.selection > -1 && player.scores.length === 0) {
+            return (
+                <div>
+                    <message>This player does not yet have any submitted scores. Play some darts!</message>
+                </div>
+            );
+        } else if (this.state.selection > -1 && player.scores !== []) {
+            return (
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th className="name-column">{player.name}</th>
+                                {nums.map(n=> <th key={n}>{n}</th>)}
+                                <th>Score</th>  
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {player.scores.map((s,i)=>{
+                                return (
+                                    <tr>
+                                        <td>Game {i+1}</td>
+                                        {s.map((holeScore, i2) => <td key={i*18+i2}>{holeScore}</td>)}
+                                        <td>{s.reduce((a,b) => a + b)}</td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                    <Statistics player={player}/>
+                </div>
+            )
+        } else {
+            return <p>No player selected.</p>
+        }
     }
     render() {
         const player = this.state.players[this.state.selection];
@@ -25,31 +64,7 @@ export class Scores extends React.Component {
                     <option value={-1}>--Please choose a darter--</option>
                     {this.state.players.map((player, i)=> <option value={i}>{player.name}</option>)}
                 </select>
-                {this.state.selection > -1 && 
-                    <div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th className="name-column">{player.name}</th>
-                                    {nums.map(n=> <th key={n}>{n}</th>)}
-                                    <th>Score</th>  
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {player.scores.map((s,i)=>{
-                                    return (
-                                        <tr>
-                                            <td>Game {i+1}</td>
-                                            {s.map((holeScore, i2) => <td key={i*18+i2}>{holeScore}</td>)}
-                                            <td>{s.reduce((a,b) => a + b)}</td>
-                                        </tr>
-                                    )
-                                })}
-                            </tbody>
-                        </table>
-                        <Statistics player={player}/>
-                    </div>
-                }
+                {this.checkScores(player)}
             </div>
         )
     }

@@ -18,29 +18,21 @@ export class CreatePlayerProfile extends React.Component {
             name: this.state.input,
             scores: []
         };
-        if(localStorage.getItem('players')){
-            const players = JSON.parse(localStorage.getItem('players'));
-            if(players[0].name === "No players available"){
-                players.splice(0, 1, newPlayer);
-                const playerString = JSON.stringify(players);
-                localStorage.setItem('players', playerString);
-                this.props.onPlayerCreation();
-                alert('Player Created! You can now find him in the player selection menu.')
-            } else {
-                players.push(newPlayer);
-                const playersString = JSON.stringify(players);
-                localStorage.setItem('players', playersString);
-                this.props.onPlayerCreation();
-                alert('Player Created! You can now find him in the player selection menu.')
-            }
-            
-        } else {
-            const newPlayerString = JSON.stringify(newPlayer);
-            localStorage.setItem('players',`[${newPlayerString}]`);
-            console.log('else block ran');
+        const players = JSON.parse(localStorage.getItem('players'));
+        if(players[0].name === "No players available"){
+            players.splice(0, 1, newPlayer);
+            const playerString = JSON.stringify(players);
+            localStorage.setItem('players', playerString);
             this.props.onPlayerCreation();
-            alert('Player Created! You can now find him in the player selection menu.')
+            alert('Player created! You can now find them in the Player Select menu')
+        } else {
+            players.push(newPlayer);
+            const playersString = JSON.stringify(players);
+            localStorage.setItem('players', playersString);
+            this.props.onPlayerCreation();
+            alert('Player created! You can now find them in the Player Select menu')
         }
+            
     }
     render() {
         return (
