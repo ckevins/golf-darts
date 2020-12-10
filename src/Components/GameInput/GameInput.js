@@ -100,8 +100,8 @@ export class GameInput extends React.Component {
                                         onChange={event => this.handleNameSelection(event,i)} >
                                         <option value={-1}>Select: </option>
                                         {this.state.availablePlayers.map(playerObj => {
-                                            return <option>{playerObj.name}</option>
-                                        })}
+                                            return <option>{playerObj.name}</option>})
+                                        }
                                     </select>
                                 </td>
                                 {p.scores.map((score, si) => {

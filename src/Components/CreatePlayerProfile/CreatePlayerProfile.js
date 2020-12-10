@@ -20,13 +20,20 @@ export class CreatePlayerProfile extends React.Component {
         };
         if(localStorage.getItem('players')){
             const players = JSON.parse(localStorage.getItem('players'));
-            console.log(players);
-            players.push(newPlayer);
-            const playersString = JSON.stringify(players);
-            localStorage.setItem('players', playersString);
-            console.log('if block ran');
-            this.props.onPlayerCreation();
-            alert('Player Created! You can now find him in the player selection menu.')
+            if(players[0].name === "No players available"){
+                players.splice(0, 1, newPlayer);
+                const playerString = JSON.stringify(players);
+                localStorage.setItem('players', playerString);
+                this.props.onPlayerCreation();
+                alert('Player Created! You can now find him in the player selection menu.')
+            } else {
+                players.push(newPlayer);
+                const playersString = JSON.stringify(players);
+                localStorage.setItem('players', playersString);
+                this.props.onPlayerCreation();
+                alert('Player Created! You can now find him in the player selection menu.')
+            }
+            
         } else {
             const newPlayerString = JSON.stringify(newPlayer);
             localStorage.setItem('players',`[${newPlayerString}]`);

@@ -7,7 +7,7 @@ export class Scores extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            players: this.props.players,
+            players: JSON.parse(localStorage.getItem('players')),
             selection: -1
         };
         this.selectPlayer = this.selectPlayer.bind(this);

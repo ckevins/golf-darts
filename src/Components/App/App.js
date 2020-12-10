@@ -8,10 +8,8 @@ import { Scores } from '../Scores/Scores';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      players: JSON.parse(localStorage.getItem('players'))
-    };
     this.submit = this.submit.bind(this);
+    this.appHTML = this.appHTML.bind(this);
   }
   submit(players) {
     const savedPlayers = JSON.parse(localStorage.getItem('players'));
@@ -29,7 +27,8 @@ class App extends React.Component {
     localStorage.setItem('players', JSON.stringify(savedPlayers));
     this.setState( {players: JSON.parse(localStorage.getItem('players'))} ); 
   }
-  render() {
+
+  appHTML() {
     return (
       <div className="App">
         <header className="App-header">
@@ -39,9 +38,23 @@ class App extends React.Component {
           </h1>
         </header>
         <GameInput onSubmit={this.submit}/>
-        <Scores players={this.state.players} className="score-sheet"/>
+        <Scores className="score-sheet"/>
       </div>
-    );
+    )
+  }
+
+  render() {
+    if(localStorage.getItem('players')){
+      return this.appHTML();
+    } else {
+      const newPlayer = {
+        name: "No players available",
+        scores: []
+      };
+      const newPlayerString = JSON.stringify(newPlayer);
+      localStorage.setItem('players',`[${newPlayerString}]`);
+      return this.appHTML();
+    }
   }
 }
 
