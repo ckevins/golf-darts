@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import './Statistics.css'; 
+import { nums } from '../GameInput/GameInput';
 
 const totaller = (scores) => {
     const totalsArray = scores.map(array => {
@@ -112,6 +113,19 @@ const getPercentage = (tally, scores) => {
     return (tally/(scores.length*18)) *100;
 }
 
+const getHoleStats = (hole, scores) => {
+    const thisHoleScores = scores.map(game => game[hole-1]);
+    const thisHoleAvg = (_.sum(thisHoleScores)/thisHoleScores.length).toFixed(2);
+    const thisHoleOnes = thisHoleScores.filter(x => x === 1).length;
+    const thisHoleTwos = thisHoleScores.filter(x => x === 2).length;
+    const thisHoleThrees = thisHoleScores.filter(x => x === 3).length;
+    const thisHoleFours = thisHoleScores.filter(x => x === 4).length;
+    const thisHoleFives = thisHoleScores.filter(x => x === 5).length;
+    const thisHoleSixes = thisHoleScores.filter(x => x === 6).length;
+    const holeArray = [thisHoleAvg, thisHoleOnes, thisHoleTwos, thisHoleThrees, thisHoleFours, thisHoleFives, thisHoleSixes];
+    return holeArray;
+}
+
 export class Statistics extends React.Component {
     render () {
         const scores = this.props.player.scores;
@@ -164,6 +178,76 @@ export class Statistics extends React.Component {
                         <td>{getPercentage(getBlues(scores), scores).toFixed(1)}%</td>
                         <td>n/a</td>
                     </tr>
+                </table>
+                <h2>Individual Hole Statistics</h2>
+                <table>
+                    <tr>
+                        <th>Best Hole</th>
+                        <th>-</th>
+                        <th>-</th>
+                        <th>-</th>
+                        <th>-</th>
+                        <th>-</th>
+                        <th>-</th>
+                        <th>-</th>
+                        <th>-</th>
+                        <th>-</th>
+                        <th>-</th>
+                        <th>-</th>
+                        <th>-</th>
+                        <th>-</th>
+                        <th>-</th>
+                        <th>-</th>
+                        <th>-</th>
+                        <th>Worst Hole</th>
+                    </tr>
+                    <tr>
+                        <td>x</td>
+                        <td>x</td>
+                        <td>x</td>
+                        <td>x</td>
+                        <td>x</td>
+                        <td>x</td>
+                        <td>x</td>
+                        <td>x</td>
+                        <td>x</td>
+                        <td>x</td>
+                        <td>x</td>
+                        <td>x</td>
+                        <td>x</td>
+                        <td>x</td>
+                        <td>x</td>
+                        <td>x</td>
+                        <td>x</td>
+                        <td>x</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <th>Hole</th>
+                        <th>Avg.</th>
+                        <th>Ones</th>
+                        <th>Twos</th>
+                        <th>Threes</th>
+                        <th>Fours</th>
+                        <th>Fives</th>
+                        <th>Sixes</th>
+                    </tr>
+                    {nums.map(hole => {
+                        const holeArray = getHoleStats(hole, scores);
+                        return (
+                            <tr>
+                                <th>{hole}</th>
+                                <td>{holeArray[0]}</td>
+                                <td>{holeArray[1]}</td>
+                                <td>{holeArray[2]}</td>
+                                <td>{holeArray[3]}</td>
+                                <td>{holeArray[4]}</td>
+                                <td>{holeArray[5]}</td>
+                                <td>{holeArray[6]}</td>
+                            </tr>
+                        )
+                    })}
                 </table>
             </div>
         )

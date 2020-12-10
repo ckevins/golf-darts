@@ -2,6 +2,7 @@ import React from 'react';
 import './GameInput.css';
 import _ from 'lodash';
 import { CreatePlayerProfile } from '../CreatePlayerProfile/CreatePlayerProfile';
+
 export const nums = _.range(1, 19);
 
 const initialState = {
