@@ -11,6 +11,7 @@ export class Scores extends React.Component {
         };
         this.selectPlayer = this.selectPlayer.bind(this);
         this.checkScores = this.checkScores.bind(this);
+        this.checkClass = this.checkClass.bind(this);
     }
     selectPlayer(event) {
         this.setState ({selection: event.target.value});
@@ -39,7 +40,7 @@ export class Scores extends React.Component {
                                 return (
                                     <tr>
                                         <td>Game {i+1}</td>
-                                        {s.map((holeScore, i2) => <td key={i*18+i2}>{holeScore}</td>)}
+                                        {s.map((holeScore, i2) => <td key={i*18+i2} className={this.checkClass(holeScore)}>{holeScore}</td>)}
                                         <td>{s.reduce((a,b) => a + b)}</td>
                                     </tr>
                                 )
@@ -53,6 +54,19 @@ export class Scores extends React.Component {
             return <p>No player selected.</p>
         }
     }
+
+    checkClass (holeScore) {
+        if (holeScore === 1) {
+            return "one"
+        } else if (holeScore < 4) {
+            return "red"
+        } else if (holeScore === 6) {
+            return "six"
+        } else {
+            return "blue"
+        }
+    }
+
     render() {
         const player = this.props.availablePlayers[this.state.selection];
         return (

@@ -22,3 +22,22 @@ th {
 .name-column {
     width: 300px;
 }
+
+.red {
+    color: #e3322b;
+}
+
+.blue {
+    color: #aadeeb;
+}
+
+.one {
+    border-radius: 100%;
+    background: #e3322b;
+}
+
+.six {
+    border-radius: 100%;
+    background: #aadeeb;
+    color: #0011ad
+}
