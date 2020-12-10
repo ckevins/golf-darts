@@ -126,6 +126,23 @@ const getHoleStats = (hole, scores) => {
     return holeArray;
 }
 
+const getRankList = (nums, scores) => {
+    const allHolesArray = nums.map(hole => getHoleStats(hole, scores));
+    const averagesObjArray = allHolesArray.map((hole,i) => {
+        const avg = hole[0];
+        return {
+            "average": avg, 
+            "hole": i+1
+        }
+    });
+    console.log(averagesObjArray)
+    const ranking = _.sortBy(averagesObjArray, ["average", "hole"]);
+    console.log(ranking);
+    return ranking.map(rank => {
+        return <td>{rank.hole}</td>;
+    });
+}
+
 export class Statistics extends React.Component {
     render () {
         const scores = this.props.player.scores;
@@ -202,24 +219,7 @@ export class Statistics extends React.Component {
                         <th>Worst Hole</th>
                     </tr>
                     <tr>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
+                        {getRankList(nums, scores)}
                     </tr>
                 </table>
                 <table>
