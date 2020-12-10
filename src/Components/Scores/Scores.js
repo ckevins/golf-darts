@@ -7,7 +7,6 @@ export class Scores extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            players: JSON.parse(localStorage.getItem('players')),
             selection: -1
         };
         this.selectPlayer = this.selectPlayer.bind(this);
@@ -55,14 +54,14 @@ export class Scores extends React.Component {
         }
     }
     render() {
-        const player = this.state.players[this.state.selection];
+        const player = this.props.availablePlayers[this.state.selection];
         return (
             <div className="print">
                 <h2>Print Score Sheets</h2>
                 <label className="select" for="player-select">Choose a darter:</label>
                 <select name="players" id="player-select" onChange={this.selectPlayer} value={this.state.selection}>
                     <option value={-1}>--Please choose a darter--</option>
-                    {this.state.players.map((player, i)=> <option value={i}>{player.name}</option>)}
+                    {this.props.availablePlayers.map((player, i)=> <option value={i}>{player.name}</option>)}
                 </select>
                 {this.checkScores(player)}
             </div>

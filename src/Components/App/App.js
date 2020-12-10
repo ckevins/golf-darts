@@ -8,8 +8,12 @@ import { Scores } from '../Scores/Scores';
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      availablePlayers: JSON.parse(window.localStorage.getItem('players'))
+    }
     this.submit = this.submit.bind(this);
     this.appHTML = this.appHTML.bind(this);
+    this.updateAvailablePlayers = this.updateAvailablePlayers.bind(this);
   }
   submit(players) {
     const savedPlayers = JSON.parse(localStorage.getItem('players'));
@@ -37,11 +41,15 @@ class App extends React.Component {
             Golf Darts
           </h1>
         </header>
-        <GameInput onSubmit={this.submit}/>
-        <Scores className="score-sheet"/>
+        <GameInput availablePlayers={this.state.availablePlayers} onPlayerCreation={this.updateAvailablePlayers} onSubmit={this.submit}/>
+        <Scores availablePlayers={this.state.availablePlayers} className="score-sheet"/>
       </div>
     )
   }
+
+  updateAvailablePlayers(newPlayer) {
+    this.setState( {availablePlayers: JSON.parse(window.localStorage.getItem('players'))} )
+  } 
 
   render() {
     if(localStorage.getItem('players')){

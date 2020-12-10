@@ -18,13 +18,11 @@ export class GameInput extends React.Component {
             players: [
                 {name: "",
                 scores: new Array(18).fill(0)}
-            ],
-            availablePlayers: JSON.parse(window.localStorage.getItem('players'))
+            ]
         }
         this.addPlayer = this.addPlayer.bind(this);
         this.handleNameSelection = this.handleNameSelection.bind(this);
         this.handleScoreChange = this.handleScoreChange.bind(this);
-        this.updateAvailablePlayers = this.updateAvailablePlayers.bind(this);
     }
     addPlayer() {
         console.log("Add Player Clicked");
@@ -76,9 +74,6 @@ export class GameInput extends React.Component {
             }
         })
     }
-    updateAvailablePlayers(newPlayer) {
-        this.setState( {availablePlayers: JSON.parse(window.localStorage.getItem('players'))} )
-    }
     render() {
         return (
             <div className="input-table">
@@ -99,7 +94,7 @@ export class GameInput extends React.Component {
                                         id="player-select" 
                                         onChange={event => this.handleNameSelection(event,i)} >
                                         <option value={-1}>Select: </option>
-                                        {this.state.availablePlayers.map(playerObj => {
+                                        {this.props.availablePlayers.map(playerObj => {
                                             return <option>{playerObj.name}</option>})
                                         }
                                     </select>
@@ -130,7 +125,7 @@ export class GameInput extends React.Component {
                         this.props.onSubmit(this.state.players);
                         this.setState(initialState)}}>Submit
                 </button>
-                <CreatePlayerProfile className="create-player" onPlayerCreation={this.updateAvailablePlayers}/>
+                <CreatePlayerProfile className="create-player" onPlayerCreation={this.props.onPlayerCreation}/>
             </div>
         )
     }
