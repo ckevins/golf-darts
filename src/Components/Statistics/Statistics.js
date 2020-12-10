@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import _, { get } from 'lodash';
 import './Statistics.css'; 
 import { nums } from '../GameInput/GameInput';
 
@@ -151,6 +151,11 @@ const checkClass = (holeScore) => {
     }
 }
 
+const getOverallHoleAvg = (scores) => {
+    const avg = getAverage(scores);
+    return (avg/18);
+}
+
 export class Statistics extends React.Component {
     render () {
         const scores = this.props.player.scores;
@@ -159,13 +164,14 @@ export class Statistics extends React.Component {
                 <h2>Game Total Statistics</h2> 
                 <br></br>
                 <p>Games Played: {scores.length}</p>
-                <p>Total Score Average: {getAverage(scores)}</p>
+                <p>Total Score Average: {getAverage(scores).toFixed(2)}</p>
                 <p>Personal Best: {getPersonalBest(scores)}</p>
                 <p>Personal Worst: {getPersonalWorst(scores)}</p>
                 <p>Games Under Par: {getUnderParTotal(scores)}, {getUnderParPercentage(scores)}% of games played</p>
                 <p>Games Over Par: {getOverParTotal(scores)}, {getOverParPercentage(scores)}% of games played</p>
                 <br></br>
                 <h2>Total Hole Statistics</h2>
+                <p>Overall Hole Average: {getOverallHoleAvg(scores).toFixed(2)}</p>
                 <table>
                     <tr>
                         <th></th>

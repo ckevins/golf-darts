@@ -84,6 +84,7 @@ class App extends React.Component {
         return {availablePlayers: [...state.availablePlayers, newPlayer] }
       }, setLocalStorage)
     }
+    alert('Player created! You can now find them in the player select menus.')
   } 
 
 }

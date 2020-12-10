@@ -71,8 +71,9 @@ export class Scores extends React.Component {
         const player = this.props.availablePlayers[this.state.selection];
         return (
             <div className="print">
-                <h2>Print Score Sheets</h2>
+                <h2>Score Sheets & Statistics</h2>
                 <label className="select" for="player-select">Choose a darter:</label>
+                <br></br>
                 <select name="players" id="player-select" onChange={this.selectPlayer} value={this.state.selection}>
                     <option value={-1}>--Please choose a darter--</option>
                     {this.props.availablePlayers.map((player, i)=> <option value={i}>{player.name}</option>)}
