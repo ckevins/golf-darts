@@ -30,7 +30,7 @@ export class GamesLineChart extends PureComponent {
     return (
       <LineChart
         width={1500}
-        height={300}
+        height={500}
         data={gameData(this.props.games)}
         margin={{
           top: 5, right: 30, left: 20, bottom: 5,
