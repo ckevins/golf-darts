@@ -27,3 +27,9 @@ h2 {
 .bar-data {
     font-size: 0.8em;
 }
+
+.line-chart {
+    font-size:2em;
+    display: flex;
+    justify-content: center;
+}

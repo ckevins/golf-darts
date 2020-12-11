@@ -3,7 +3,8 @@ import _, { get } from 'lodash';
 import './Statistics.css'; 
 import { nums } from '../GameInput/GameInput';
 import { GamesLineChart } from '../LineChart/LineChart';
-import { HoleBarChart } from '../BarChart/BarChart';
+import { HoleBarChart } from '../HoleBarChart/HoleBarChart';
+import { HolePieChart } from '../HolePieChart/HolePieChart';
 
 const totaller = (scores) => {
     const totalsArray = scores.map(array => {
@@ -201,10 +202,10 @@ export class Statistics extends React.Component {
                 <p>Games Over Par: {getOverParTotal(scores)}, {getOverParPercentage(scores)}% of games played</p>
                 <p>Most Ones in a single game: {getOnesRecord(scores)} (Game {getOnesRecordIndex(scores)})</p>
                 <p>Most Red Scores in a single game: {getRedsRecord(scores)} (Game {getRedsRecordIndex(scores)})</p>
-                <br></br>
+                <div className="line-chart">
                 <GamesLineChart 
                     games={scores}/>
-                <br></br>
+                </div>
                 <h2>Total Hole Statistics</h2>
                 <p>Overall Hole Average: {getOverallHoleAvg(scores).toFixed(2)}</p>
                 <p>Turkeys: x</p>
@@ -283,6 +284,7 @@ export class Statistics extends React.Component {
                                 <th>{hole}</th>
                                 <td className={checkClass(holeArray[0])}>{holeArray[0]}</td>
                                 <td className="bar-data"><HoleBarChart
+                                    className="bar-chart"
                                     ones={holeArray[1]}
                                     twos={holeArray[2]}
                                     threes={holeArray[3]} 
@@ -290,6 +292,14 @@ export class Statistics extends React.Component {
                                     fives={holeArray[5]}
                                     sixes={holeArray[6]}
                                     /></td>
+                                <td><HolePieChart
+                                    ones={holeArray[1]}
+                                    twos={holeArray[2]}
+                                    threes={holeArray[3]} 
+                                    fours={holeArray[4]}
+                                    fives={holeArray[5]}
+                                    sixes={holeArray[6]}
+                                /></td>
                             </tr>
                         )
                     })}

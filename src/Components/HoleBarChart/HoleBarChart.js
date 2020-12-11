@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
+import './HoleBarChart.css';
 
 
 const colors = ['#e3322b','#e3322b','#e3322b','#aadeeb','#aadeeb','#aadeeb' ]
@@ -51,16 +52,17 @@ export class HoleBarChart extends PureComponent {
     const sixes = this.props.sixes;
     return (
       <BarChart
-        width={1000}
+        width= {1000}
         height={400}
         data={holeData(ones,twos,threes,fours,fives,sixes)}
+        barCategoryGap={0}
         margin={{
           top: 50, right: 30, left: 20, bottom: 10,
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
+        <CartesianGrid strokeDasharray="3 3" vertical={false} />
+        <XAxis dataKey="name" stroke="#ffffff"/>
+        <YAxis allowDecimals={false} axisLine={false} stroke="#ffffff" />
         <Bar dataKey="tally" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
           {
             holeData(ones,twos,threes,fours,fives,sixes).map((entry, index) => (

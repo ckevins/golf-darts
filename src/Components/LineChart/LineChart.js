@@ -29,16 +29,16 @@ export class GamesLineChart extends PureComponent {
   render() {
     return (
       <LineChart
-        width={1500}
+        width= {1500}
         height={500}
         data={gameData(this.props.games)}
         margin={{
-          top: 5, right: 30, left: 20, bottom: 5,
+          top: 30, right: 50, left: 50, bottom: 5,
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name"/>
-        <YAxis />
+        <XAxis dataKey="name" stroke="#ffffff"/>
+        <YAxis stroke="#ffffff" />
         <Tooltip />
         <Legend />
         <Line type="linear" dataKey="Ones" stroke="#e3322b" strokeWidth='5' />
