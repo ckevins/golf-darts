@@ -21,7 +21,7 @@ export class Scores extends React.Component {
         if (this.state.selection > -1 && player.scores.length === 0) {
             return (
                 <div>
-                    <message>This player does not yet have any submitted scores. Play some darts!</message>
+                    <message>This player does not have any submitted scores yet. Play some darts!</message>
                 </div>
             );
         } else if (this.state.selection > -1 && player.scores !== []) {

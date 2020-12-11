@@ -15,6 +15,10 @@ th {
     text-align: center;
 }
 
+message {
+    font-size: 2em;
+}
+
 .print td {
     padding: 20px;
 }

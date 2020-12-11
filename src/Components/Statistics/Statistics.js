@@ -45,6 +45,20 @@ const getOverParPercentage = (scores) => {
     return ((getOverParTotal(scores)/scores.length)*100).toFixed(0);
 }
 
+const getOnesRecord = (scores) => {
+    const count = scores.map((game) => {
+        return game.filter(x => x === 1).length
+    });
+    return Math.max(...count);
+}
+
+const getRedsRecord = (scores) => {
+    const count = scores.map((game) => {
+        return game.filter(x => x < 4).length
+    });
+    return Math.max(...count);
+}
+
 const getOnes = (scores) => {
     const count = scores.map((game, i) => {
         return game.filter(x => x === 1).length
@@ -169,9 +183,12 @@ export class Statistics extends React.Component {
                 <p>Personal Worst: {getPersonalWorst(scores)}</p>
                 <p>Games Under Par: {getUnderParTotal(scores)}, {getUnderParPercentage(scores)}% of games played</p>
                 <p>Games Over Par: {getOverParTotal(scores)}, {getOverParPercentage(scores)}% of games played</p>
+                <p>Most Ones in a single game: {getOnesRecord(scores)}</p>
+                <p>Most Red Scores in a single game: {getRedsRecord(scores)}</p>
                 <br></br>
                 <h2>Total Hole Statistics</h2>
                 <p>Overall Hole Average: {getOverallHoleAvg(scores).toFixed(2)}</p>
+                <p>Turkeys: x</p>
                 <table>
                     <tr>
                         <th></th>
@@ -183,7 +200,6 @@ export class Statistics extends React.Component {
                         <th>Sixes</th>
                         <th>Red Scores</th>
                         <th>Blue Scores</th>
-                        <th>Turkeys</th>
                     </tr>
                     <tr>
                         <th>Total:</th>
@@ -195,7 +211,6 @@ export class Statistics extends React.Component {
                         <td>{getSixes(scores)}</td>
                         <td>{getReds(scores)}</td>
                         <td>{getBlues(scores)}</td>
-                        <td>?</td>
                     </tr>
                     <tr>
                         <th>Percentage:</th>
@@ -207,7 +222,6 @@ export class Statistics extends React.Component {
                         <td>{getPercentage(getSixes(scores), scores).toFixed(1)}%</td>
                         <td>{getPercentage(getReds(scores), scores).toFixed(1)}%</td>
                         <td>{getPercentage(getBlues(scores), scores).toFixed(1)}%</td>
-                        <td>n/a</td>
                     </tr>
                 </table>
                 <h2>Individual Hole Statistics</h2>
