@@ -2,6 +2,7 @@ h2 {
     text-align: center;
 }
 
+
 .stats p {
     font-size: 2em;
     text-align: left;
@@ -16,3 +17,13 @@ h2 {
     padding: 20px;
 }
 
+.individualHoleCharts th {
+    font-size: 1em;
+}
+
+.individualHoleCharts td {
+    padding-top: 50px;
+}
+.bar-data {
+    font-size: 0.8em;
+}
