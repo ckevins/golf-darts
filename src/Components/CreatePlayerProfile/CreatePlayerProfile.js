@@ -38,7 +38,7 @@ export class CreatePlayerProfile extends React.Component {
     render() {
         return (
             <div>
-                <h2>Create New Player Profile</h2>
+                <h3>Create New Player Profile</h3>
                 <p>If your name does not appear in the Player Select menu, you can create a new player profile here.</p> 
                 <label>New Player Name: </label>
                 <br></br>
