@@ -52,6 +52,13 @@ const getOnesRecord = (scores) => {
     return Math.max(...count);
 }
 
+const getOnesRecordIndex = (scores) => {
+    const count = scores.map((game) => {
+        return game.filter(x => x === 1).length
+    });
+    return count.indexOf(Math.max(...count)) + 1;
+}
+
 const getRedsRecord = (scores) => {
     const count = scores.map((game) => {
         return game.filter(x => x < 4).length
@@ -59,8 +66,15 @@ const getRedsRecord = (scores) => {
     return Math.max(...count);
 }
 
+const getRedsRecordIndex = (scores) => {
+    const count = scores.map((game) => {
+        return game.filter(x => x < 4).length
+    });
+    return count.indexOf(Math.max(...count)) + 1;
+}
+
 const getOnes = (scores) => {
-    const count = scores.map((game, i) => {
+    const count = scores.map((game) => {
         return game.filter(x => x === 1).length
     });
     const total = _.sum(count);
@@ -183,8 +197,8 @@ export class Statistics extends React.Component {
                 <p>Personal Worst: {getPersonalWorst(scores)}</p>
                 <p>Games Under Par: {getUnderParTotal(scores)}, {getUnderParPercentage(scores)}% of games played</p>
                 <p>Games Over Par: {getOverParTotal(scores)}, {getOverParPercentage(scores)}% of games played</p>
-                <p>Most Ones in a single game: {getOnesRecord(scores)}</p>
-                <p>Most Red Scores in a single game: {getRedsRecord(scores)}</p>
+                <p>Most Ones in a single game: {getOnesRecord(scores)} (Game {getOnesRecordIndex(scores)})</p>
+                <p>Most Red Scores in a single game: {getRedsRecord(scores)} (Game {getRedsRecordIndex(scores)})</p>
                 <br></br>
                 <h2>Total Hole Statistics</h2>
                 <p>Overall Hole Average: {getOverallHoleAvg(scores).toFixed(2)}</p>
