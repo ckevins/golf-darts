@@ -14,7 +14,7 @@ const holeData = (ones, twos, threes, fours, fives, sixes) => {
     ]
   }
 
-const COLORS = ['#e3322b','#ff706b', '#ffbcba', '#cae2e8', '#aadeeb', '#0077e6'];
+const COLORS = ['#e3322b','#ff706b', '#ffbcba', '#aadeeb', '#02b8e6', '#0032e6'];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
