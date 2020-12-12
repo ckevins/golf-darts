@@ -14,7 +14,7 @@ const holeData = (ones, twos, threes, fours, fives, sixes) => {
     ]
   }
 
-const COLORS = ['#e3322b','#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'aadeeb'];
+const COLORS = ['#e3322b','#ff706b', '#ffbcba', '#cae2e8', '#aadeeb', '#0077e6'];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
@@ -25,7 +25,7 @@ const renderCustomizedLabel = ({
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
   return (
-    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} fontSize={"0.6em"} dominantBaseline="central">
       {`${(percent * 100).toFixed(0)}%`}
     </text>
   );

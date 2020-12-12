@@ -6,7 +6,7 @@ import {
 import './HoleBarChart.css';
 
 
-const colors = ['#e3322b','#e3322b','#e3322b','#aadeeb','#aadeeb','#aadeeb' ]
+const colors = ['#e3322b','#ff706b', '#ffbcba', '#aadeeb', '#02b8e6', '#0032e6'];
 
 const holeData = (ones, twos, threes, fours, fives, sixes) => {
   return [
@@ -61,8 +61,8 @@ export class HoleBarChart extends PureComponent {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" vertical={false} />
-        <XAxis dataKey="name" stroke="#ffffff"/>
-        <YAxis allowDecimals={false} axisLine={false} stroke="#ffffff" />
+        <XAxis dataKey="name" tickLine={false} stroke="#ffffff"/>
+        <YAxis allowDecimals={false} axisLine={false} tickLine={false} stroke="#ffffff" />
         <Bar dataKey="tally" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
           {
             holeData(ones,twos,threes,fours,fives,sixes).map((entry, index) => (
