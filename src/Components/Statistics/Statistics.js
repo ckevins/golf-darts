@@ -3,8 +3,10 @@ import _, { get } from 'lodash';
 import './Statistics.css'; 
 import { nums } from '../GameInput/GameInput';
 import { GamesLineChart } from '../LineChart/LineChart';
+import { GameStackedAreaChart } from '../GameStackedAreaChart/GameStackedAreaChart';
 import { HoleBarChart } from '../HoleBarChart/HoleBarChart';
 import { HolePieChart } from '../HolePieChart/HolePieChart';
+
 
 const totaller = (scores) => {
     const totalsArray = scores.map(array => {
@@ -202,9 +204,13 @@ export class Statistics extends React.Component {
                 <p>Games Over Par: {getOverParTotal(scores)}, {getOverParPercentage(scores)}% of games played</p>
                 <p>Most Ones in a single game: {getOnesRecord(scores)} (Game {getOnesRecordIndex(scores)})</p>
                 <p>Most Red Scores in a single game: {getRedsRecord(scores)} (Game {getRedsRecordIndex(scores)})</p>
+                <div className="stacked-area-chart">
+                    <GameStackedAreaChart 
+                        games={scores}/>
+                </div>
                 <div className="line-chart">
-                <GamesLineChart 
-                    games={scores}/>
+                    <GamesLineChart 
+                        games={scores}/>
                 </div>
                 <h2>Total Hole Statistics</h2>
                 <p>Overall Hole Average: {getOverallHoleAvg(scores).toFixed(2)}</p>
