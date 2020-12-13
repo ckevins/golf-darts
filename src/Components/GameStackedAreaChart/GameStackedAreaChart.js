@@ -38,12 +38,12 @@ export class GameStackedAreaChart extends PureComponent {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" tickLine={false} stroke="#ffffff"/>
-        <YAxis tickLine={false} stroke="#ffffff"/>
+        <YAxis tickLine={false} stroke="#ffffff" domain={[0,18]} tickCount={8}/>
         <Tooltip />
-        <Area type="monotone" dataKey="Ones" stackId="1" stroke="#e3322b" fill="#e3322b" />
-        <Area type="monotone" dataKey="Reds" stackId="1" stroke="#ffbcba" fill="#ffbcba" />
-        <Area type="monotone" dataKey="Blues" stackId="1" stroke="#aadeeb" fill="#aadeeb" />
-        <Area type="monotone" dataKey="Sixes" stackId="1" stroke="#0032e6" fill="#0032e6" />
+        <Area type="linear" dataKey="Ones" stackId="1" stroke="#e3322b" fill="#e3322b" />
+        <Area type="linear" dataKey="Reds" stackId="1" stroke="#ffbcba" fill="#ffbcba" />
+        <Area type="linear" dataKey="Blues" stackId="1" stroke="#aadeeb" fill="#aadeeb" />
+        <Area type="linear" dataKey="Sixes" stackId="1" stroke="#0032e6" fill="#0032e6" />
       </AreaChart>
     );
   }

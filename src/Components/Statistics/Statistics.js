@@ -208,10 +208,10 @@ export class Statistics extends React.Component {
                     <GameStackedAreaChart 
                         games={scores}/>
                 </div>
-                <div className="line-chart">
+                {/* <div className="line-chart">
                     <GamesLineChart 
-                        games={scores}/>
-                </div>
+                        games={scores}/> 
+                </div> */}
                 <h2>Total Hole Statistics</h2>
                 <p>Overall Hole Average: {getOverallHoleAvg(scores).toFixed(2)}</p>
                 <p>Turkeys: x</p>
