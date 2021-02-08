@@ -15,7 +15,4 @@ scoresRouter.get('/', (req, res, next) => {
     })
 });
 
-//select scores by game
-scoresRouter.get('/games')
-
 module.exports = scoresRouter;
