@@ -27,19 +27,26 @@ class App extends React.Component {
     fetch('http://localhost:4000/api/players')
       .then(response => response.json())
       .then(data => {
-        console.log(data.players);
         if(data.players.length > 0) {
           data.players.forEach(player => {
             const textScoreArr = Array.from(player.score);
-            console.log(textScoreArr);
-            const score = []
+            const allScores = [];
             textScoreArr.forEach(text => {
               const num = Number(text);
-              score.push(num);
+              allScores.push(num);
             })
-            console.log(score);
-            player.score = score;
+            let games = [];
+            const splitArray = (array) => {
+              while(array.length >= 18) {
+                let arrayElement = array.splice(0,18);
+                games.push(arrayElement);
+              }
+              return games;
+            };
+            splitArray(allScores);
+            player.score = games;
           });
+
           this.setState( {
             availablePlayers: data.players} );
         }
