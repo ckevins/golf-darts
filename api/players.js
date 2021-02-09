@@ -1,6 +1,5 @@
 const playersRouter = require('express').Router();
 const sqlite3 = require('sqlite3');
-const playersRouter = require('./api');
 const scoresRouter = require('./scores');
 const db = new sqlite3.Database('./database.sqlite');
 
@@ -20,12 +19,16 @@ playersRouter.param('player_id', (req, res, next, playerId) => {
 });
 
 playersRouter.get('/', (req, res, next) => {
-    db.all(`SELECT name FROM Players`, (error, players) => {
-        if(error){
-            next(error)
-        } else {
-            res.status(200).json({ players: players});
-        }
+    db.all(`SELECT  Players.player_id, name, GROUP_CONCAT(score, '') AS score
+        FROM Players 
+        JOIN Scores 
+        ON Players.player_id = Scores.player_id
+        GROUP BY name`, (error, players) => {
+            if(error) {
+                next(error)
+            } else {
+                res.status(200).json({ players: players })
+            }
     })
 });
 

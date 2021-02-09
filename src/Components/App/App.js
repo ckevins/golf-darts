@@ -9,22 +9,41 @@ import { Scores } from '../Scores/Scores';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    if(localStorage.getItem('players')){
-      this.state = {
-        availablePlayers: JSON.parse(window.localStorage.getItem('players'))
-      }
-    } else {
-      this.state = {
-        availablePlayers: [
-          {
-            name: "No players available",
-            scores: []
-          }
-        ]
-      }
-    }
+    this.state = {
+      availablePlayers: [
+        {
+          player_id: 0,
+          name: "No players available",
+          scores: []
+        }
+      ]
+    };
+    
     this.submit = this.submit.bind(this);
     this.updateAvailablePlayers = this.updateAvailablePlayers.bind(this);
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:4000/api/players')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.players);
+        if(data.players.length > 0) {
+          data.players.forEach(player => {
+            const textScoreArr = Array.from(player.score);
+            console.log(textScoreArr);
+            const score = []
+            textScoreArr.forEach(text => {
+              const num = Number(text);
+              score.push(num);
+            })
+            console.log(score);
+            player.score = score;
+          });
+          this.setState( {
+            availablePlayers: data.players} );
+        }
+      });
   }
 
   submit(players) {
