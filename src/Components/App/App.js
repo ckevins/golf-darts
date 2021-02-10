@@ -5,6 +5,7 @@ import './app.css';
 import logo from './furmanLogo.png';
 import { GameInput } from '../game-input/game-input';
 import { Scores } from '../score-sheets/score-sheets';
+import { CreatePlayerProfile } from '../create-player/create-player';
 
 class App extends React.Component {
   constructor(props) {
@@ -82,7 +83,13 @@ class App extends React.Component {
             Golf Darts
           </h1>
         </header>
-        <GameInput availablePlayers={this.state.availablePlayers} onPlayerCreation={this.updateAvailablePlayers} onSubmit={this.submit}/>
+        <GameInput 
+          availablePlayers={this.state.availablePlayers} 
+          onPlayerCreation={this.updateAvailablePlayers} 
+          onSubmit={this.submit}/>
+        <CreatePlayerProfile 
+          className="create-player" 
+          onPlayerCreation={this.updateAvailablePlayers}/>
         <Scores availablePlayers={this.state.availablePlayers} className="score-sheet"/>
       </div>
     )

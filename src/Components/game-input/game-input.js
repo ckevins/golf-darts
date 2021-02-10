@@ -126,7 +126,6 @@ export class GameInput extends React.Component {
                         this.props.onSubmit(this.state.players);
                         this.setState(initialState)}}>Submit
                 </button>
-                <CreatePlayerProfile className="create-player" onPlayerCreation={this.props.onPlayerCreation}/>
             </div>
         )
     }
