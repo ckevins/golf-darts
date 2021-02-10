@@ -1,11 +1,10 @@
 import React from 'react';
 import _, { get } from 'lodash';
-import './Statistics.css'; 
-import { nums } from '../GameInput/GameInput';
-import { GamesLineChart } from '../LineChart/LineChart';
-import { GameStackedAreaChart } from '../GameStackedAreaChart/GameStackedAreaChart';
-import { HoleBarChart } from '../HoleBarChart/HoleBarChart';
-import { HolePieChart } from '../HolePieChart/HolePieChart';
+import './statistics.css'; 
+import { nums } from '../game-input/game-input';
+import { GameStackedAreaChart } from '../charts/stacked-area-chart/stacked-area-chart';
+import { HoleBarChart } from '../charts/hole-bar-chart/hole-bar-chart';
+import { HolePieChart } from '../charts/hole-pie-chart/hole-pie-chart';
 
 
 const totaller = (scores) => {

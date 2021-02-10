@@ -1,5 +1,5 @@
 import React from 'react';
-import './CreatePlayerProfile.css';
+import './create-player.css';
 
 export class CreatePlayerProfile extends React.Component {
     constructor (props) {

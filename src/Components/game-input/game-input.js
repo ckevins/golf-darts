@@ -1,7 +1,7 @@
 import React from 'react';
-import './GameInput.css';
+import './game-input.css';
 import _ from 'lodash';
-import { CreatePlayerProfile } from '../CreatePlayerProfile/CreatePlayerProfile';
+import { CreatePlayerProfile } from '../create-player/create-player';
 
 export const nums = _.range(1, 19);
 

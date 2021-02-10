@@ -1,7 +1,7 @@
 import React from 'react';
-import './Scores.css';
-import { Statistics } from '../Statistics/Statistics';
-import {nums} from '../GameInput/GameInput';
+import './score-sheets.css';
+import { Statistics } from '../statistics/statistics';
+import {nums} from '../game-input/game-input';
 
 export class Scores extends React.Component {
     constructor(props) {

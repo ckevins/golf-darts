@@ -1,10 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
 import 'semantic-ui-css/semantic.min.css';
-import './App.css';
+import './app.css';
 import logo from './furmanLogo.png';
-import { GameInput } from '../GameInput/GameInput';
-import { Scores } from '../Scores/Scores';
+import { GameInput } from '../game-input/game-input';
+import { Scores } from '../score-sheets/score-sheets';
 
 class App extends React.Component {
   constructor(props) {
@@ -22,6 +22,9 @@ class App extends React.Component {
     this.submit = this.submit.bind(this);
     this.updateAvailablePlayers = this.updateAvailablePlayers.bind(this);
   }
+
+  //after App mounts, this function fetches players that are saved to the database and sets the state of available players.
+  // availablePlayer: [{player_id: 1, name: 'Cody', scores: [[game1],[game2]]}]
 
   componentDidMount() {
     fetch('http://localhost:4000/api/players')
@@ -46,7 +49,6 @@ class App extends React.Component {
             splitArray(allScores);
             player.score = games;
           });
-
           this.setState( {
             availablePlayers: data.players} );
         }
@@ -69,20 +71,6 @@ class App extends React.Component {
         })
       }
     }, () => localStorage.setItem("players", JSON.stringify(this.state.availablePlayers)))
-    // const savedPlayers = JSON.parse(localStorage.getItem('players'));
-    // players.map(player => {
-    //   savedPlayers.map(savedPlayer => {
-    //     if(player.name === savedPlayer.name){
-    //       savedPlayer.scores.push(player.scores);
-    //       return savedPlayer
-    //     } else {
-    //       return savedPlayer
-    //     }
-    //   })
-    //   return savedPlayers;
-    // });
-    // localStorage.setItem('players', JSON.stringify(savedPlayers));
-    // this.setState( {availablePlayers: JSON.parse(localStorage.getItem('players'))} ); 
   }
 
   render() {
