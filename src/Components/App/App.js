@@ -44,21 +44,30 @@ class App extends React.Component {
   }
 
   submit(players) {
-    this.setState(state => {
-      return { 
-        availablePlayers: state.availablePlayers.map(availablePlayer => {
-          const player = _.find(players, {name: availablePlayer.name});
-          if (player) {
-            return {
-              ...availablePlayer,
-              scores: [...availablePlayer.scores, player.scores]
-            }
-          } else {
-            return availablePlayer
-          }
-        })
-      }
-    }, () => localStorage.setItem("players", JSON.stringify(this.state.availablePlayers)))
+    // this.setState(state => {
+    //   return { 
+    //     availablePlayers: state.availablePlayers.map(availablePlayer => {
+    //       const player = _.find(players, {name: availablePlayer.name});
+    //       if (player) {
+    //         return {
+    //           ...availablePlayer,
+    //           scores: [...availablePlayer.scores, player.scores]
+    //         }
+    //       } else {
+    //         return availablePlayer
+    //       }
+    //     })
+    //   }
+    // }, () => localStorage.setItem("players", JSON.stringify(this.state.availablePlayers)))
+
+    const url = 'http://localhost:4000/api/players/scores';
+    fetch (url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(players)
+    })
   }
 
   render() {
@@ -85,15 +94,6 @@ class App extends React.Component {
   }
 
   updateAvailablePlayers(newPlayer) {
-    // const setLocalStorage = () => localStorage.setItem("players", JSON.stringify(this.state.availablePlayers));
-    // if(this.state.availablePlayers[0].name === "No players available"){
-    //   const players = [newPlayer]
-    //   this.setState( {availablePlayers: players}, setLocalStorage)
-    // } else {
-    //   this.setState(state => {
-    //     return {availablePlayers: [...state.availablePlayers, newPlayer] }
-    //   }, setLocalStorage)
-    // }
     const url = 'http://localhost:4000/api/players';
     fetch (url, {
       method: 'POST',

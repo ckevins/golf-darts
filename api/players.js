@@ -82,6 +82,6 @@ playersRouter.post('/', (req, res, next) => {
     }
 });
 
-playersRouter.use('/:player_id/scores', scoresRouter);
+playersRouter.use('/scores', scoresRouter);
 
 module.exports = playersRouter;
