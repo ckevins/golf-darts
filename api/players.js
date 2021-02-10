@@ -19,7 +19,7 @@ playersRouter.param('player_id', (req, res, next, playerId) => {
 });
 
 playersRouter.get('/', (req, res, next) => {
-    db.all(`SELECT  Players.player_id, name, GROUP_CONCAT(score, '') AS score
+    db.all(`SELECT  Players.player_id, name, GROUP_CONCAT(score, '') AS games
         FROM Players 
         JOIN Scores 
         ON Players.player_id = Scores.player_id
@@ -37,7 +37,7 @@ playersRouter.get('/:player_id', (req, res, next) => {
 });
 
 playersRouter.post('/', (req, res, next) => {
-    const name = req.body.player.name;
+    const name = req.body.name;
     if (!name) {
         res.status(400).send('A new player must have a name.');
     } else {
@@ -47,7 +47,7 @@ playersRouter.post('/', (req, res, next) => {
             if(error){
                 next(error)
             } else {
-                db.get(`SELECT * FROM Players WHERE id = ${this.lastID}`, (error, player) =>{
+                db.get(`SELECT * FROM Players WHERE player_id = ${this.lastID}`, (error, player) =>{
                     if(error){
                         next(error)
                     } else {

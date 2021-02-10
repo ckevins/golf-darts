@@ -16,7 +16,7 @@ export class CreatePlayerProfile extends React.Component {
     createPlayer() {
         const newPlayer = {
             name: this.state.input,
-            scores: []
+            games: []
         };
         this.props.onPlayerCreation(newPlayer); 
     }

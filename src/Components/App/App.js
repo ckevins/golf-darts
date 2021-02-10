@@ -15,25 +15,26 @@ class App extends React.Component {
         {
           player_id: 0,
           name: "No players available",
-          scores: []
+          games: []
         }
       ]
     };
     
     this.submit = this.submit.bind(this);
     this.updateAvailablePlayers = this.updateAvailablePlayers.bind(this);
+    this.getAllPlayers = this.getAllPlayers.bind(this);
   }
 
   //after App mounts, this function fetches players that are saved to the database and sets the state of available players.
   // availablePlayer: [{player_id: 1, name: 'Cody', scores: [[game1],[game2]]}]
 
-  componentDidMount() {
+  getAllPlayers() {
     fetch('http://localhost:4000/api/players')
       .then(response => response.json())
       .then(data => {
         if(data.players.length > 0) {
           data.players.forEach(player => {
-            const textScoreArr = Array.from(player.score);
+            const textScoreArr = Array.from(player.games);
             const allScores = [];
             textScoreArr.forEach(text => {
               const num = Number(text);
@@ -48,12 +49,16 @@ class App extends React.Component {
               return games;
             };
             splitArray(allScores);
-            player.score = games;
+            player.games = games;
           });
           this.setState( {
             availablePlayers: data.players} );
         }
       });
+  }
+
+  componentDidMount() {
+    this.getAllPlayers();
   }
 
   submit(players) {
@@ -96,16 +101,34 @@ class App extends React.Component {
   }
 
   updateAvailablePlayers(newPlayer) {
-    const setLocalStorage = () => localStorage.setItem("players", JSON.stringify(this.state.availablePlayers));
-    if(this.state.availablePlayers[0].name === "No players available"){
-      const players = [newPlayer]
-      this.setState( {availablePlayers: players}, setLocalStorage)
-    } else {
-      this.setState(state => {
-        return {availablePlayers: [...state.availablePlayers, newPlayer] }
-      }, setLocalStorage)
-    }
-    alert('Player created! You can now find them in the player select menus.')
+    // const setLocalStorage = () => localStorage.setItem("players", JSON.stringify(this.state.availablePlayers));
+    // if(this.state.availablePlayers[0].name === "No players available"){
+    //   const players = [newPlayer]
+    //   this.setState( {availablePlayers: players}, setLocalStorage)
+    // } else {
+    //   this.setState(state => {
+    //     return {availablePlayers: [...state.availablePlayers, newPlayer] }
+    //   }, setLocalStorage)
+    // }
+    const url = 'http://localhost:4000/api/players';
+    fetch (url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newPlayer)
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(`Player Created >>>> Name: ${data.player.name}`);
+        alert(`New player created:
+
+        ${data.player.name}
+
+        They can now be selected from all player selection menus.
+        `);
+        this.getAllPlayers();
+      })
   } 
 
 }

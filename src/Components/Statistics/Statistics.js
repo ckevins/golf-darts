@@ -1,5 +1,5 @@
 import React from 'react';
-import _, { get } from 'lodash';
+import _ from 'lodash';
 import './statistics.css'; 
 import { nums } from '../game-input/game-input';
 import { GameStackedAreaChart } from '../charts/stacked-area-chart/stacked-area-chart';
