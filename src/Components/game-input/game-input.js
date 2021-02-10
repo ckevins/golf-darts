@@ -11,6 +11,12 @@ const initialState = {
     ],
     availablePlayers: JSON.parse(window.localStorage.getItem('players'))
 };
+
+const resetSelection = () => {
+    const playerSelect = document.getElementById('player-select');
+    playerSelect.value = -1;
+}
+
 export class GameInput extends React.Component {
     constructor(props) {
         super(props);
@@ -37,6 +43,7 @@ export class GameInput extends React.Component {
         })
     }
     handleNameSelection(e, index) {
+        console.log(e);
         this.setState(state => {
             return {
                 players: state.players.map((p, i) => {
@@ -123,7 +130,9 @@ export class GameInput extends React.Component {
                     className="button" 
                     onClick={()=> {
                         this.props.onSubmit(this.state.players);
-                        this.setState(initialState)}}>Submit
+                        this.setState(initialState);
+                        resetSelection()}}>
+                            Submit
                 </button>
             </div>
         )

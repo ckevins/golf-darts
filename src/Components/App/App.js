@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import 'semantic-ui-css/semantic.min.css';
 import './app.css';
 import logo from './furmanLogo.png';
@@ -44,22 +43,6 @@ class App extends React.Component {
   }
 
   submit(players) {
-    // this.setState(state => {
-    //   return { 
-    //     availablePlayers: state.availablePlayers.map(availablePlayer => {
-    //       const player = _.find(players, {name: availablePlayer.name});
-    //       if (player) {
-    //         return {
-    //           ...availablePlayer,
-    //           scores: [...availablePlayer.scores, player.scores]
-    //         }
-    //       } else {
-    //         return availablePlayer
-    //       }
-    //     })
-    //   }
-    // }, () => localStorage.setItem("players", JSON.stringify(this.state.availablePlayers)))
-
     const url = 'http://localhost:4000/api/players/scores';
     fetch (url, {
       method: 'POST',
@@ -68,6 +51,7 @@ class App extends React.Component {
       },
       body: JSON.stringify(players)
     })
+    .then(()=> this.getAllPlayers())
   }
 
   render() {
