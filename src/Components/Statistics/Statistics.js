@@ -190,7 +190,7 @@ const getOverallHoleAvg = (scores) => {
 
 export class Statistics extends React.Component {
     render () {
-        const scores = this.props.player.scores;
+        const scores = this.props.player.games;
         return (
             <div className="stats">
                 <h2>Game Total Statistics</h2> 

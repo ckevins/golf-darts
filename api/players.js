@@ -21,12 +21,35 @@ playersRouter.param('player_id', (req, res, next, playerId) => {
 playersRouter.get('/', (req, res, next) => {
     db.all(`SELECT  Players.player_id, name, GROUP_CONCAT(score, '') AS games
         FROM Players 
-        JOIN Scores 
+        LEFT JOIN Scores 
         ON Players.player_id = Scores.player_id
-        GROUP BY name`, (error, players) => {
+        GROUP BY name
+        ORDER BY game_id, hole_number`, (error, players) => {
             if(error) {
                 next(error)
             } else {
+                players.forEach(player => {
+                    if(player.games === null) {
+                        player.games = [];
+                    } else {
+                        const textScoreArr = Array.from(player.games);
+                        const allScoresArr = [];
+                        textScoreArr.forEach(text => {
+                            const num = Number(text);
+                            allScoresArr.push(num);
+                        });
+                        let games = [];
+                        const splitArray = (array) => {
+                            while(array.length >= 18) {
+                                let arrayElement = array.splice(0, 18);
+                                games.push(arrayElement);
+                            }
+                            return games;
+                        };
+                        splitArray(allScoresArr);
+                        player.games = games;
+                    }
+                })
                 res.status(200).json({ players: players })
             }
     })

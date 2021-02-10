@@ -33,24 +33,6 @@ class App extends React.Component {
       .then(response => response.json())
       .then(data => {
         if(data.players.length > 0) {
-          data.players.forEach(player => {
-            const textScoreArr = Array.from(player.games);
-            const allScores = [];
-            textScoreArr.forEach(text => {
-              const num = Number(text);
-              allScores.push(num);
-            })
-            let games = [];
-            const splitArray = (array) => {
-              while(array.length >= 18) {
-                let arrayElement = array.splice(0,18);
-                games.push(arrayElement);
-              }
-              return games;
-            };
-            splitArray(allScores);
-            player.games = games;
-          });
           this.setState( {
             availablePlayers: data.players} );
         }
@@ -95,7 +77,9 @@ class App extends React.Component {
         <CreatePlayerProfile 
           className="create-player" 
           onPlayerCreation={this.updateAvailablePlayers}/>
-        <Scores availablePlayers={this.state.availablePlayers} className="score-sheet"/>
+        <Scores 
+          availablePlayers={this.state.availablePlayers} 
+          className="score-sheet"/>
       </div>
     )
   }
