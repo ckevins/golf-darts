@@ -18,24 +18,19 @@ const getStat = (games, stat) => {
     const average = (totaller(games).reduce((a,b)=>a+b)) / games.length;
     switch(stat) {
         case 'average':
-            return average
-            break;
+            return average;
         case 'personal best':
             return Math.min(...totaller(games));
-            break;
         case 'personal worst':
             return Math.max(...totaller(games));
-            break;
         case 'under par':
             const gamesUnderPar = totaller(games).filter(x => x < 72).length;
             const underPercentage = ((gamesUnderPar / games.length) * 100).toFixed(0);
             return [gamesUnderPar, underPercentage];
-            break;
         case 'over par':
             const gamesOverPar = totaller(games).filter(x => x >= 72).length;
             const overPercentage = ((gamesOverPar / games.length) * 100).toFixed(0);
             return [gamesOverPar, overPercentage];
-            break;
         case 'ones record':
             const onesCounter = games.map(game => {
                 return game.filter(x => x === 1).length
@@ -43,7 +38,6 @@ const getStat = (games, stat) => {
             const onesRecord = Math.max(...onesCounter);
             const onesRecordGame = (onesCounter.indexOf(onesRecord)) + 1;
             return [onesRecord, onesRecordGame];
-            break;
         case 'reds record':
             const redsCounter = games.map(game => {
                 return game.filter(x => x < 4).length;
@@ -51,11 +45,10 @@ const getStat = (games, stat) => {
             const redsRecord = Math.max(...redsCounter);
             const redsRecordGame = (redsCounter.indexOf(redsRecord)) + 1;
             return [redsRecord, redsRecordGame];
-            break;
         case 'all holes average':
             return average/18;
-            break;
         default:
+            console.log('No valid stat argument received');
             return
     }
 }
@@ -66,12 +59,10 @@ const getThisScore = (games, scoreValue) => {
             const redCount = _.sum(games.map(game => game.filter(x => x < 4).length));
             const redPercentage = (redCount/(games.length*18)) * 100;
             return [redCount, redPercentage]
-            break;
         case 'blues':
             const blueCount = _.sum(games.map(game => game.filter(x => x >= 4).length));
             const bluePercentage = (blueCount/(games.length*18)) * 100;
             return [blueCount, bluePercentage]
-            break;
         default:
             const thisScoreCount = _.sum(games.map(game => game.filter(x => x === scoreValue).length));
             const thisScorePercentage = (thisScoreCount/(games.length*18)) * 100;
