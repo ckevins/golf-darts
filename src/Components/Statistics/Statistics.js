@@ -207,8 +207,6 @@ export class Statistics extends React.Component {
         const scores = this.props.player.games;
         return (
             <div className="stats">
-                <h2>Game Total Statistics</h2> 
-                <br></br>
                 <table id="gameTotalTable">
                     <tr>
                         <th>Games Played:</th>
@@ -242,15 +240,12 @@ export class Statistics extends React.Component {
                         <th>Most Reds:</th>
                         <td>{getRedsRecord(scores)} (Game {getRedsRecordIndex(scores)})</td>
                     </tr>
-                </table>
-                {checkForStackedAreaChart(scores)}
-                <h2>Total Hole Statistics</h2>
-                <table id="gameTotalTable">
                     <tr>
                         <th>Overall Hole Average:</th>
                         <td>{getOverallHoleAvg(scores).toFixed(2)}</td>
                     </tr>
                 </table>
+                {checkForStackedAreaChart(scores)}
                 <table>
                     <tr>
                         <th></th>
@@ -260,8 +255,6 @@ export class Statistics extends React.Component {
                         <th>Fours</th>
                         <th>Fives</th>
                         <th>Sixes</th>
-                        <th>Red Scores</th>
-                        <th>Blue Scores</th>
                     </tr>
                     <tr>
                         <th>Total:</th>
@@ -271,8 +264,6 @@ export class Statistics extends React.Component {
                         <td>{getFours(scores)}</td>
                         <td>{getFives(scores)}</td>
                         <td>{getSixes(scores)}</td>
-                        <td>{getReds(scores)}</td>
-                        <td>{getBlues(scores)}</td>
                     </tr>
                     <tr>
                         <th>Percentage:</th>
@@ -282,70 +273,88 @@ export class Statistics extends React.Component {
                         <td>{getPercentage(getFours(scores), scores).toFixed(1)}%</td>
                         <td>{getPercentage(getFives(scores), scores).toFixed(1)}%</td>
                         <td>{getPercentage(getSixes(scores), scores).toFixed(1)}%</td>
+                    </tr>
+                    <br></br>
+                    <tr>
+                        <th></th>
+                        <td></td>
+                        <th>Red Scores</th>
+                        <td></td>
+                        <td></td>
+                        <th>Blue Scores</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Total:</td>
+                        <td></td>
+                        <td>{getReds(scores)}</td>
+                        <td>
+                        </td>
+                        <td></td>
+                        <td>{getBlues(scores)}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Percentage:</td>
+                        <td></td>
                         <td>{getPercentage(getReds(scores), scores).toFixed(1)}%</td>
+                        <td></td>
+                        <td></td>
                         <td>{getPercentage(getBlues(scores), scores).toFixed(1)}%</td>
+                        <td></td>
                     </tr>
                 </table>
-                <h2>Individual Hole Statistics</h2>
                 <table>
                     <tr>
                         <th>Best Hole</th>
-                        <th>-</th>
-                        <th>-</th>
-                        <th>-</th>
-                        <th>-</th>
-                        <th>-</th>
-                        <th>-</th>
-                        <th>-</th>
-                        <th>-</th>
-                        <th>-</th>
-                        <th>-</th>
-                        <th>-</th>
-                        <th>-</th>
-                        <th>-</th>
-                        <th>-</th>
-                        <th>-</th>
-                        <th>-</th>
+                        <th>&#8592;</th>
+                        <th>&#8592;</th>
+                        <th>&#8592;</th>
+                        <th>&#8592;</th>
+                        <th>&#8592;</th>
+                        <th>&#8592;</th>
+                        <th>&#8592;</th>
+                        <th>&#8592;</th>
+                        <th>&#8594;</th>
+                        <th>&#8594;</th>
+                        <th>&#8594;</th>
+                        <th>&#8594;</th>
+                        <th>&#8594;</th>
+                        <th>&#8594;</th>
+                        <th>&#8594;</th>
+                        <th>&#8594;</th>
                         <th>Worst Hole</th>
                     </tr>
                     <tr>
                         {getRankList(nums, scores)}
                     </tr>
                 </table>
-                <table className="individualHoleCharts">
-                    <tr>
-                        <th>Hole</th>
-                        <th>Avg.</th>
-                        <th>Tallies</th>
-                        <th>%</th>
-                    </tr>
-                    {nums.map(hole => {
-                        const holeArray = getHoleStats(hole, scores);
-                        return (
-                            <tr>
-                                <th>{hole}</th>
-                                <td className={checkClass(holeArray[0])}>{holeArray[0]}</td>
-                                <td className="bar-data"><HoleBarChart
-                                    className="bar-chart"
-                                    ones={holeArray[1]}
-                                    twos={holeArray[2]}
-                                    threes={holeArray[3]} 
-                                    fours={holeArray[4]}
-                                    fives={holeArray[5]}
-                                    sixes={holeArray[6]}
-                                    /></td>
-                                <td><HolePieChart
-                                    ones={holeArray[1]}
-                                    twos={holeArray[2]}
-                                    threes={holeArray[3]} 
-                                    fours={holeArray[4]}
-                                    fives={holeArray[5]}
-                                    sixes={holeArray[6]}
-                                /></td>
-                            </tr>
-                        )
-                    })}
-                </table>
+                {nums.map(hole => {
+                    const holeArray = getHoleStats(hole, scores);
+                    return (
+                        <div>
+                            <h3>Hole {hole}</h3>
+                            <h4 className={checkClass(holeArray[0])}>Avg: {holeArray[0]}</h4>
+                            <HoleBarChart
+                                className="bar-chart"
+                                ones={holeArray[1]}
+                                twos={holeArray[2]}
+                                threes={holeArray[3]} 
+                                fours={holeArray[4]}
+                                fives={holeArray[5]}
+                                sixes={holeArray[6]}
+                            />
+                            <HolePieChart
+                                ones={holeArray[1]}
+                                twos={holeArray[2]}
+                                threes={holeArray[3]} 
+                                fours={holeArray[4]}
+                                fives={holeArray[5]}
+                                sixes={holeArray[6]}
+                            />
+                        </div>
+                    )
+                })}
             </div>
         )
     }

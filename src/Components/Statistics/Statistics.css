@@ -2,6 +2,9 @@ h2 {
     text-align: center;
 }
 
+h4 {
+    font-size: 2em;
+}
 
 .stats p {
     font-size: 2em;
@@ -23,9 +26,8 @@ h2 {
 .stats table {
     margin-left: 100px;
 }
-.stats th {
+.stats table th {
     font-size: 0.5em;
-    padding: 20px;
 }
 
 .individualHoleCharts th {
@@ -35,8 +37,10 @@ h2 {
 .individualHoleCharts td {
     padding-top: 50px;
 }
-.bar-data {
-    font-size: 0.8em;
+
+.bar-chart {
+    display: flex;
+    justify-content: center;
 }
 
 .line-chart {
