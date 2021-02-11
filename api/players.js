@@ -24,7 +24,8 @@ playersRouter.get('/', (req, res, next) => {
         LEFT JOIN Scores 
         ON Players.player_id = Scores.player_id
         GROUP BY name
-        ORDER BY game_id, hole_number`, (error, players) => {
+        ORDER BY game_id, hole_number`, 
+        (error, players) => {
             if(error) {
                 next(error)
             } else {
