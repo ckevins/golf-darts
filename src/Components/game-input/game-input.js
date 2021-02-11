@@ -1,17 +1,23 @@
 import React from 'react';
-import './GameInput.css';
+import './game-input.css';
 import _ from 'lodash';
-import { CreatePlayerProfile } from '../CreatePlayerProfile/CreatePlayerProfile';
 
 export const nums = _.range(1, 19);
 
+//state to reset to after submit
 const initialState = {
     players: [
         {name: "",
         scores: new Array(18).fill(0)}
-    ],
-    availablePlayers: JSON.parse(window.localStorage.getItem('players'))
+    ]
 };
+
+//resets player select box to default option so that submit button can be used more than once.
+const resetSelection = () => {
+    const playerSelect = document.getElementById('player-select');
+    playerSelect.value = -1;
+}
+
 export class GameInput extends React.Component {
     constructor(props) {
         super(props);
@@ -22,6 +28,7 @@ export class GameInput extends React.Component {
             ]
         }
         this.addPlayer = this.addPlayer.bind(this);
+        this.removePlayer = this.removePlayer.bind(this);
         this.handleNameSelection = this.handleNameSelection.bind(this);
         this.handleScoreChange = this.handleScoreChange.bind(this);
     }
@@ -37,7 +44,11 @@ export class GameInput extends React.Component {
             }
         })
     }
+    removePlayer() {
+        console.log("Remove Player Clicked");
+    }
     handleNameSelection(e, index) {
+        console.log(e);
         this.setState(state => {
             return {
                 players: state.players.map((p, i) => {
@@ -124,9 +135,10 @@ export class GameInput extends React.Component {
                     className="button" 
                     onClick={()=> {
                         this.props.onSubmit(this.state.players);
-                        this.setState(initialState)}}>Submit
+                        this.setState(initialState);
+                        resetSelection()}}>
+                            Submit
                 </button>
-                <CreatePlayerProfile className="create-player" onPlayerCreation={this.props.onPlayerCreation}/>
             </div>
         )
     }

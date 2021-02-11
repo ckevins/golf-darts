@@ -10,8 +10,7 @@ db.serialize(() => {
     db.run(`DROP TABLE IF EXISTS Games`);
     db.run(`CREATE TABLE Games (
         game_id INTEGER PRIMARY KEY NOT NULL,
-        player_id INTEGER NOT NULL,
-        FOREIGN KEY (player_id) REFERENCES Players(player_id)
+        date DATETIME NOT NULL
     )`);
     db.run(`DROP TABLE IF EXISTS Scores`);
     db.run(`CREATE TABLE Scores (

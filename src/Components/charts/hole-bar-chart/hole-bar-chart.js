@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
-  BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid
 } from 'recharts';
-import './HoleBarChart.css';
+import './hole-bar-chart.css';
 
 
 const colors = ['#e3322b','#ff706b', '#ffbcba', '#aadeeb', '#02b8e6', '#0032e6'];

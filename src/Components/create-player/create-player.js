@@ -1,5 +1,5 @@
 import React from 'react';
-import './CreatePlayerProfile.css';
+import './create-player.css';
 
 export class CreatePlayerProfile extends React.Component {
     constructor (props) {
@@ -16,24 +16,9 @@ export class CreatePlayerProfile extends React.Component {
     createPlayer() {
         const newPlayer = {
             name: this.state.input,
-            scores: []
+            games: []
         };
-        this.props.onPlayerCreation(newPlayer);
-        // const players = JSON.parse(localStorage.getItem('players'));
-        // if(players[0].name === "No players available"){
-        //     players.splice(0, 1, newPlayer);
-        //     const playerString = JSON.stringify(players);
-        //     localStorage.setItem('players', playerString);
-        //     this.props.onPlayerCreation();
-        //     alert('Player created! You can now find them in the Player Select menu')
-        // } else {
-        //     players.push(newPlayer);
-        //     const playersString = JSON.stringify(players);
-        //     localStorage.setItem('players', playersString);
-        //     this.props.onPlayerCreation();
-        //     alert('Player created! You can now find them in the Player Select menu')
-        // }
-            
+        this.props.onPlayerCreation(newPlayer); 
     }
     render() {
         return (

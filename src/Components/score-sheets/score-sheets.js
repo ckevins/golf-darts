@@ -1,7 +1,7 @@
 import React from 'react';
-import './Scores.css';
-import { Statistics } from '../Statistics/Statistics';
-import {nums} from '../GameInput/GameInput';
+import './score-sheets.css';
+import { Statistics } from '../statistics/statistics';
+import {nums} from '../game-input/game-input';
 
 export class Scores extends React.Component {
     constructor(props) {
@@ -18,13 +18,13 @@ export class Scores extends React.Component {
     }
     
     checkScores(player) {
-        if (this.state.selection > -1 && player.scores.length === 0) {
+        if (this.state.selection > -1 && player.games.length === 0) {
             return (
                 <div>
                     <message>This player does not have any submitted scores yet. Play some darts!</message>
                 </div>
             );
-        } else if (this.state.selection > -1 && player.scores !== []) {
+        } else if (this.state.selection > -1 && player.games !== []) {
             return (
                 <div>
                     <table>
@@ -36,7 +36,7 @@ export class Scores extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {player.scores.map((s,i)=>{
+                            {player.games.map((s,i)=>{
                                 return (
                                     <tr>
                                         <td>Game {i+1}</td>
