@@ -1,11 +1,10 @@
 import React from 'react';
-import _ from 'lodash';
+import _, { each } from 'lodash';
 import './statistics.css'; 
 import { nums } from '../game-input/game-input';
 import { GameStackedAreaChart } from '../charts/stacked-area-chart/stacked-area-chart';
 import { HoleBarChart } from '../charts/hole-bar-chart/hole-bar-chart';
 import { HolePieChart } from '../charts/hole-pie-chart/hole-pie-chart';
-
 
 const totaller = (scores) => {
     const totalsArray = scores.map(array => {
@@ -15,138 +14,71 @@ const totaller = (scores) => {
     return totalsArray
 }
 
-const getAverage = (scores) => {
-    const totalSum = totaller(scores).reduce((a,b)=> a+b);
-    const average = totalSum / scores.length;
-    return average;
+const getStat = (games, stat) => {
+    const average = (totaller(games).reduce((a,b)=>a+b)) / games.length;
+    switch(stat) {
+        case 'average':
+            return average
+            break;
+        case 'personal best':
+            return Math.min(...totaller(games));
+            break;
+        case 'personal worst':
+            return Math.max(...totaller(games));
+            break;
+        case 'under par':
+            const gamesUnderPar = totaller(games).filter(x => x < 72).length;
+            const underPercentage = ((gamesUnderPar / games.length) * 100).toFixed(0);
+            return [gamesUnderPar, underPercentage];
+            break;
+        case 'over par':
+            const gamesOverPar = totaller(games).filter(x => x >= 72).length;
+            const overPercentage = ((gamesOverPar / games.length) * 100).toFixed(0);
+            return [gamesOverPar, overPercentage];
+            break;
+        case 'ones record':
+            const onesCounter = games.map(game => {
+                return game.filter(x => x === 1).length
+            });
+            const onesRecord = Math.max(...onesCounter);
+            const onesRecordGame = (onesCounter.indexOf(onesRecord)) + 1;
+            return [onesRecord, onesRecordGame];
+            break;
+        case 'reds record':
+            const redsCounter = games.map(game => {
+                return game.filter(x => x < 4).length;
+            });
+            const redsRecord = Math.max(...redsCounter);
+            const redsRecordGame = (redsCounter.indexOf(redsRecord)) + 1;
+            return [redsRecord, redsRecordGame];
+            break;
+        case 'all holes average':
+            return average/18;
+            break;
+    }
 }
 
-const getPersonalBest = (scores) => {
-    const personalBest = Math.min(...totaller(scores));
-    return personalBest;
+const getThisScore = (games, scoreValue) => {
+    switch (scoreValue) {
+        case 'reds':
+            const redCount = _.sum(games.map(game => game.filter(x => x < 4).length));
+            const redPercentage = (redCount/(games.length*18)) * 100;
+            return [redCount, redPercentage]
+            break;
+        case 'blues':
+            const blueCount = _.sum(games.map(game => game.filter(x => x >= 4).length));
+            const bluePercentage = (blueCount/(games.length*18)) * 100;
+            return [blueCount, bluePercentage]
+            break;
+        default:
+            const thisScoreCount = _.sum(games.map(game => game.filter(x => x === scoreValue).length));
+            const thisScorePercentage = (thisScoreCount/(games.length*18)) * 100;
+            return [thisScoreCount, thisScorePercentage]
+    }
 }
 
-const getPersonalWorst = (scores) => {
-    const personalWorst = Math.max(...totaller(scores));
-    return personalWorst;
-} 
-
-const getUnderParTotal = (scores) => {
-    const gamesUnderPar = totaller(scores).filter(x => x < 72).length;
-    return gamesUnderPar;
-}
-
-const getUnderParPercentage = (scores) => {
-    return ((getUnderParTotal(scores)/scores.length)*100).toFixed(0);
-}
-
-const getOverParTotal = (scores) => {
-    const gamesOverPar = totaller(scores).filter(x => x >= 72).length;
-    return gamesOverPar;
-}
-
-const getOverParPercentage = (scores) => {
-    return ((getOverParTotal(scores)/scores.length)*100).toFixed(0);
-}
-
-const getOnesRecord = (scores) => {
-    const count = scores.map((game) => {
-        return game.filter(x => x === 1).length
-    });
-    return Math.max(...count);
-}
-
-const getOnesRecordIndex = (scores) => {
-    const count = scores.map((game) => {
-        return game.filter(x => x === 1).length
-    });
-    return count.indexOf(Math.max(...count)) + 1;
-}
-
-const getRedsRecord = (scores) => {
-    const count = scores.map((game) => {
-        return game.filter(x => x < 4).length
-    });
-    return Math.max(...count);
-}
-
-const getRedsRecordIndex = (scores) => {
-    const count = scores.map((game) => {
-        return game.filter(x => x < 4).length
-    });
-    return count.indexOf(Math.max(...count)) + 1;
-}
-
-const getOnes = (scores) => {
-    const count = scores.map((game) => {
-        return game.filter(x => x === 1).length
-    });
-    const total = _.sum(count);
-    return total;
-}
-
-const getTwos = (scores) => {
-    const count = scores.map((game, i) => {
-        return game.filter(x => x === 2).length
-    });
-    const total = _.sum(count);
-    return total;
-}
-
-const getThrees = (scores) => {
-    const count = scores.map((game, i) => {
-        return game.filter(x => x === 3).length
-    });
-    const total = _.sum(count);
-    return total;
-}
-
-const getFours = (scores) => {
-    const count = scores.map((game, i) => {
-        return game.filter(x => x === 4).length
-    });
-    const total = _.sum(count);
-    return total;
-}
-
-const getFives = (scores) => {
-    const count = scores.map((game, i) => {
-        return game.filter(x => x === 5).length
-    });
-    const total = _.sum(count);
-    return total;
-}
-
-const getSixes = (scores) => {
-    const count = scores.map((game, i) => {
-        return game.filter(x => x === 6).length
-    });
-    const total = _.sum(count);
-    return total;
-}
-
-const getReds = (scores) => {
-    const count = scores.map(game => {
-        return game.filter(x => x < 4).length
-    })
-    const total = _.sum(count);
-    return total;
-}
-
-const getBlues = (scores) => {
-    const count = scores.map(game => {
-        return game.filter(x => x >= 4).length
-    })
-    const total = _.sum(count);
-    return total;
-}
-
-const getPercentage = (tally, scores) => {
-    return (tally/(scores.length*18)) *100;
-}
-
-const getHoleStats = (hole, scores) => {
-    const thisHoleScores = scores.map(game => game[hole-1]);
+const getHoleStats = (hole, games) => {
+    const thisHoleScores = games.map(game => game[hole-1]);
     const thisHoleAvg = (_.sum(thisHoleScores)/thisHoleScores.length).toFixed(2);
     const thisHoleOnes = thisHoleScores.filter(x => x === 1).length;
     const thisHoleTwos = thisHoleScores.filter(x => x === 2).length;
@@ -167,9 +99,7 @@ const getRankList = (nums, scores) => {
             "hole": i+1
         }
     });
-    console.log(averagesObjArray)
     const ranking = _.sortBy(averagesObjArray, ["average", "hole"]);
-    console.log(ranking);
     return ranking.map(rank => {
         return <td>{rank.hole}</td>;
     });
@@ -183,18 +113,13 @@ const checkClass = (holeScore) => {
     }
 }
 
-const getOverallHoleAvg = (scores) => {
-    const avg = getAverage(scores);
-    return (avg/18);
-}
-
 //StackedAreaChart looks dumb if only one score is saved; this makes sure that it only shows with more than one.
-const checkForStackedAreaChart = (scores) => {
-    if(scores.length > 1) {
+const checkForStackedAreaChart = (games) => {
+    if(games.length > 1) {
         return (
             <div className="stacked-area-chart">
                 <GameStackedAreaChart 
-                games={scores}/>
+                games={games}/>
             </div>
         )
     } else {
@@ -204,48 +129,48 @@ const checkForStackedAreaChart = (scores) => {
 
 export class Statistics extends React.Component {
     render () {
-        const scores = this.props.player.games;
+        const games = this.props.player.games;
         return (
             <div className="stats">
                 <table id="gameTotalTable">
                     <tr>
                         <th>Games Played:</th>
-                        <td>{scores.length}</td>
+                        <td>{games.length}</td>
                     </tr>
                     <tr>
                         <th>Total Score Average:</th>
-                        <td>{getAverage(scores).toFixed(2)}</td>
+                        <td>{getStat(games, 'average').toFixed(2)}</td>
                     </tr>
                     <tr>
                         <th>Personal Best:</th>
-                        <td>{getPersonalBest(scores)}</td>
+                        <td>{getStat(games, 'personal best')}</td>
                     </tr>
                     <tr>
                         <th>Personal Worst:</th>
-                        <td>{getPersonalWorst(scores)}</td>
+                        <td>{getStat(games, 'personal worst')}</td>
                     </tr>
                     <tr>
                         <th>Games Under Par:</th>
-                        <td>{getUnderParTotal(scores)} ({getUnderParPercentage(scores)}%)</td>
+                        <td>{getStat(games, 'under par')[0]} ({getStat(games, 'under par')[1]}%)</td>
                     </tr>
                     <tr>
                         <th>Games Over Par:</th>
-                        <td>{getOverParTotal(scores)} ({getOverParPercentage(scores)}%)</td>
+                        <td>{getStat(games, 'over par')[0]} ({getStat(games, 'over par')[1]}%)</td>
                     </tr>
                     <tr>
                         <th>Most Ones:</th>
-                        <td>{getOnesRecord(scores)} (Game {getOnesRecordIndex(scores)})</td>
+                        <td>{getStat(games, 'ones record')[0]} (Game {getStat(games, 'ones record')[1]})</td>
                     </tr>
                     <tr>
                         <th>Most Reds:</th>
-                        <td>{getRedsRecord(scores)} (Game {getRedsRecordIndex(scores)})</td>
+                        <td>{getStat(games, 'reds record')[0]} (Game {getStat(games, 'reds record')[1]})</td>
                     </tr>
                     <tr>
                         <th>Overall Hole Average:</th>
-                        <td>{getOverallHoleAvg(scores).toFixed(2)}</td>
+                        <td>{getStat(games, 'all holes average').toFixed(2)}</td>
                     </tr>
                 </table>
-                {checkForStackedAreaChart(scores)}
+                {checkForStackedAreaChart(games)}
                 <table>
                     <tr>
                         <th></th>
@@ -258,21 +183,21 @@ export class Statistics extends React.Component {
                     </tr>
                     <tr>
                         <th>Total:</th>
-                        <td>{getOnes(scores)}</td>
-                        <td>{getTwos(scores)}</td>
-                        <td>{getThrees(scores)}</td>
-                        <td>{getFours(scores)}</td>
-                        <td>{getFives(scores)}</td>
-                        <td>{getSixes(scores)}</td>
+                        <td>{getThisScore(games, 1)[0]}</td>
+                        <td>{getThisScore(games, 2)[0]}</td>
+                        <td>{getThisScore(games, 3)[0]}</td>
+                        <td>{getThisScore(games, 4)[0]}</td>
+                        <td>{getThisScore(games, 5)[0]}</td>
+                        <td>{getThisScore(games, 6)[0]}</td>
                     </tr>
                     <tr>
                         <th>Percentage:</th>
-                        <td>{getPercentage(getOnes(scores), scores).toFixed(1)}%</td>
-                        <td>{getPercentage(getTwos(scores), scores).toFixed(1)}%</td>
-                        <td>{getPercentage(getThrees(scores), scores).toFixed(1)}%</td>
-                        <td>{getPercentage(getFours(scores), scores).toFixed(1)}%</td>
-                        <td>{getPercentage(getFives(scores), scores).toFixed(1)}%</td>
-                        <td>{getPercentage(getSixes(scores), scores).toFixed(1)}%</td>
+                        <td>{getThisScore(games, 1)[1].toFixed(1)}%</td>
+                        <td>{getThisScore(games, 2)[1].toFixed(1)}%</td>
+                        <td>{getThisScore(games, 3)[1].toFixed(1)}%</td>
+                        <td>{getThisScore(games, 4)[1].toFixed(1)}%</td>
+                        <td>{getThisScore(games, 5)[1].toFixed(1)}%</td>
+                        <td>{getThisScore(games, 6)[1].toFixed(1)}%</td>
                     </tr>
                     <br></br>
                     <tr>
@@ -287,23 +212,31 @@ export class Statistics extends React.Component {
                     <tr>
                         <td>Total:</td>
                         <td></td>
-                        <td>{getReds(scores)}</td>
+                        <td>{getThisScore(games, 'reds')[0]}</td>
                         <td>
                         </td>
                         <td></td>
-                        <td>{getBlues(scores)}</td>
+                        <td>{getThisScore(games, 'blues')[0]}</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Percentage:</td>
                         <td></td>
-                        <td>{getPercentage(getReds(scores), scores).toFixed(1)}%</td>
+                        <td>{getThisScore(games, 'reds')[1].toFixed(1)}%</td>
                         <td></td>
                         <td></td>
-                        <td>{getPercentage(getBlues(scores), scores).toFixed(1)}%</td>
+                        <td>{getThisScore(games, 'blues')[1].toFixed(1)}%</td>
                         <td></td>
                     </tr>
                 </table>
+                <HolePieChart
+                    ones={getThisScore(games,1)[0]}
+                    twos={getThisScore(games,2)[0]}
+                    threes={getThisScore(games,3)[0]} 
+                    fours={getThisScore(games,4)[0]}
+                    fives={getThisScore(games,5)[0]}
+                    sixes={getThisScore(games,6)[0]}
+                />
                 <table>
                     <tr>
                         <th>Best Hole</th>
@@ -326,11 +259,11 @@ export class Statistics extends React.Component {
                         <th>Worst Hole</th>
                     </tr>
                     <tr>
-                        {getRankList(nums, scores)}
+                        {getRankList(nums, games)}
                     </tr>
                 </table>
                 {nums.map(hole => {
-                    const holeArray = getHoleStats(hole, scores);
+                    const holeArray = getHoleStats(hole, games);
                     return (
                         <div>
                             <h3>Hole {hole}</h3>

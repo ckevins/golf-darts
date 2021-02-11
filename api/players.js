@@ -3,21 +3,22 @@ const sqlite3 = require('sqlite3');
 const scoresRouter = require('./scores');
 const db = new sqlite3.Database('./database.sqlite');
 
-playersRouter.param('player_id', (req, res, next, playerId) => {
-    const sql = `SELECT * FROM Players WHERE player_id = $player_id`;
-    const values = { $player_id: playerId };
-    db.get(sql, values, (error, player) => {
-        if(error){
-            next(error)
-        } else if (player) {
-            req.player = player;
-            next();
-        } else {
-            res.status(404).send('No player found with this ID');
-        }
-    })
-});
+// playersRouter.param('player_id', (req, res, next, playerId) => {
+//     const sql = `SELECT * FROM Players WHERE player_id = $player_id`;
+//     const values = { $player_id: playerId };
+//     db.get(sql, values, (error, player) => {
+//         if(error){
+//             next(error)
+//         } else if (player) {
+//             req.player = player;
+//             next();
+//         } else {
+//             res.status(404).send('No player found with this ID');
+//         }
+//     })
+// });
 
+//CALLED TO SET STATE FOR SELECTION BOXES
 playersRouter.get('/', (req, res, next) => {
     db.all(`SELECT  Players.player_id, name, GROUP_CONCAT(score, '') AS games
         FROM Players 
@@ -56,10 +57,11 @@ playersRouter.get('/', (req, res, next) => {
     })
 });
 
-playersRouter.get('/:player_id', (req, res, next) => {
-    res.status(200).json({ player: req.player });
-});
+// playersRouter.get('/:player_id', (req, res, next) => {
+//     res.status(200).json({ player: req.player });
+// });
 
+//CALLED ON PLAYER CREATION
 playersRouter.post('/', (req, res, next) => {
     const name = req.body.name;
     if (!name) {
