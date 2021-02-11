@@ -1,5 +1,5 @@
 import React from 'react';
-import _, { each } from 'lodash';
+import _ from 'lodash';
 import './statistics.css'; 
 import { nums } from '../game-input/game-input';
 import { GameStackedAreaChart } from '../charts/stacked-area-chart/stacked-area-chart';
@@ -55,6 +55,8 @@ const getStat = (games, stat) => {
         case 'all holes average':
             return average/18;
             break;
+        default:
+            return
     }
 }
 
