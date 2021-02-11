@@ -188,6 +188,20 @@ const getOverallHoleAvg = (scores) => {
     return (avg/18);
 }
 
+//StackedAreaChart looks dumb if only one score is saved; this makes sure that it only shows with more than one.
+const checkForStackedAreaChart = (scores) => {
+    if(scores.length > 1) {
+        return (
+            <div className="stacked-area-chart">
+                <GameStackedAreaChart 
+                games={scores}/>
+            </div>
+        )
+    } else {
+        return
+    }
+}
+
 export class Statistics extends React.Component {
     render () {
         const scores = this.props.player.games;
@@ -195,25 +209,48 @@ export class Statistics extends React.Component {
             <div className="stats">
                 <h2>Game Total Statistics</h2> 
                 <br></br>
-                <p>Games Played: {scores.length}</p>
-                <p>Total Score Average: {getAverage(scores).toFixed(2)}</p>
-                <p>Personal Best: {getPersonalBest(scores)}</p>
-                <p>Personal Worst: {getPersonalWorst(scores)}</p>
-                <p>Games Under Par: {getUnderParTotal(scores)}, {getUnderParPercentage(scores)}% of games played</p>
-                <p>Games Over Par: {getOverParTotal(scores)}, {getOverParPercentage(scores)}% of games played</p>
-                <p>Most Ones in a single game: {getOnesRecord(scores)} (Game {getOnesRecordIndex(scores)})</p>
-                <p>Most Red Scores in a single game: {getRedsRecord(scores)} (Game {getRedsRecordIndex(scores)})</p>
-                <div className="stacked-area-chart">
-                    <GameStackedAreaChart 
-                        games={scores}/>
-                </div>
-                {/* <div className="line-chart">
-                    <GamesLineChart 
-                        games={scores}/> 
-                </div> */}
+                <table id="gameTotalTable">
+                    <tr>
+                        <th>Games Played:</th>
+                        <td>{scores.length}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Score Average:</th>
+                        <td>{getAverage(scores).toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <th>Personal Best:</th>
+                        <td>{getPersonalBest(scores)}</td>
+                    </tr>
+                    <tr>
+                        <th>Personal Worst:</th>
+                        <td>{getPersonalWorst(scores)}</td>
+                    </tr>
+                    <tr>
+                        <th>Games Under Par:</th>
+                        <td>{getUnderParTotal(scores)} ({getUnderParPercentage(scores)}%)</td>
+                    </tr>
+                    <tr>
+                        <th>Games Over Par:</th>
+                        <td>{getOverParTotal(scores)} ({getOverParPercentage(scores)}%)</td>
+                    </tr>
+                    <tr>
+                        <th>Most Ones:</th>
+                        <td>{getOnesRecord(scores)} (Game {getOnesRecordIndex(scores)})</td>
+                    </tr>
+                    <tr>
+                        <th>Most Reds:</th>
+                        <td>{getRedsRecord(scores)} (Game {getRedsRecordIndex(scores)})</td>
+                    </tr>
+                </table>
+                {checkForStackedAreaChart(scores)}
                 <h2>Total Hole Statistics</h2>
-                <p>Overall Hole Average: {getOverallHoleAvg(scores).toFixed(2)}</p>
-                <p>Turkeys: x</p>
+                <table id="gameTotalTable">
+                    <tr>
+                        <th>Overall Hole Average:</th>
+                        <td>{getOverallHoleAvg(scores).toFixed(2)}</td>
+                    </tr>
+                </table>
                 <table>
                     <tr>
                         <th></th>
