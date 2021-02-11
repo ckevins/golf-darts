@@ -46,6 +46,12 @@ export class GameInput extends React.Component {
     }
     removePlayer() {
         console.log("Remove Player Clicked");
+        this.setState(state => {
+            const playersMinusOne = state.players.slice(0, -1)
+            return {
+                players: playersMinusOne
+            }
+        })
     }
     handleNameSelection(e, index) {
         console.log(e);
@@ -130,6 +136,10 @@ export class GameInput extends React.Component {
                 <button 
                     className="button" 
                     onClick={this.addPlayer}>Add Player
+                </button>
+                <button 
+                    className="button" 
+                    onClick={this.removePlayer}>Remove Player
                 </button>
                 <button 
                     className="button" 
