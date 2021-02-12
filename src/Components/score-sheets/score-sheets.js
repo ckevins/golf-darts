@@ -32,15 +32,15 @@ export class ScoreSheets extends React.Component {
                             <tr>
                                 <th>{player.name}</th>
                                 {nums.map(n=> <th key={n}>{n}</th>)}
-                                <th>Score</th>  
+                                <th>Total</th>  
                             </tr>
                         </thead>
                         <tbody>
                             {player.games.map((s,i)=>{
                                 return (
-                                    <tr id='score-cells'>
+                                    <tr>
                                         <th>Game {i+1}</th>
-                                        {s.map((holeScore, i2) => <td key={i*18+i2} className={this.checkClass(holeScore)}>{holeScore}</td>)}
+                                        {s.map((holeScore, i2) => <td key={i*18+i2} className={this.checkClass(holeScore)} id='score-cells'>{holeScore}</td>)}
                                         <td >{s.reduce((a,b) => a + b)}</td>
                                     </tr>
                                 )

@@ -155,7 +155,7 @@ export class Statistics extends React.Component {
                         <td>{games.length}</td>
                     </tr>
                     <tr>
-                        <th>Total Score Average:</th>
+                        <th>Total Average:</th>
                         <td>{getStat(games, 'average').toFixed(2)}</td>
                     </tr>
                     <tr>
@@ -183,7 +183,7 @@ export class Statistics extends React.Component {
                         <td>{getStat(games, 'reds record')[0]} (Game {getStat(games, 'reds record')[1]})</td>
                     </tr>
                     <tr>
-                        <th>Overall Hole Average:</th>
+                        <th>Hole Average:</th>
                         <td>{getStat(games, 'all holes average').toFixed(2)}</td>
                     </tr>
                 </table>
