@@ -11,23 +11,25 @@ export class HoleStats extends React.Component {
         return (
             <div>
                 <h4 className={checkClass(holeArray[0])}>Avg: {holeArray[0]}</h4>
-                <HoleBarChart
-                    className="bar-chart"
-                    ones={holeArray[1]}
-                    twos={holeArray[2]}
-                    threes={holeArray[3]} 
-                    fours={holeArray[4]}
-                    fives={holeArray[5]}
-                    sixes={holeArray[6]}
-                />
-                <HolePieChart
-                    ones={holeArray[1]}
-                    twos={holeArray[2]}
-                    threes={holeArray[3]} 
-                    fours={holeArray[4]}
-                    fives={holeArray[5]}
-                    sixes={holeArray[6]}
-                />
+                <div class='hole-charts'>
+                    <HoleBarChart
+                        className="bar-chart"
+                        ones={holeArray[1]}
+                        twos={holeArray[2]}
+                        threes={holeArray[3]} 
+                        fours={holeArray[4]}
+                        fives={holeArray[5]}
+                        sixes={holeArray[6]}
+                    />
+                    <HolePieChart
+                        ones={holeArray[1]}
+                        twos={holeArray[2]}
+                        threes={holeArray[3]} 
+                        fours={holeArray[4]}
+                        fives={holeArray[5]}
+                        sixes={holeArray[6]}
+                    />
+                </div>
             </div>
         )
     }

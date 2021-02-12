@@ -248,6 +248,7 @@ export class Statistics extends React.Component {
                     </tr>
                 </table>
                 <HolePieChart
+                    id='all-scores-pie-chart'
                     ones={getThisScore(games,1)[0]}
                     twos={getThisScore(games,2)[0]}
                     threes={getThisScore(games,3)[0]} 

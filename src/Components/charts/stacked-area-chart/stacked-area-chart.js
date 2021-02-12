@@ -30,7 +30,7 @@ export class GameStackedAreaChart extends PureComponent {
     return (
       <AreaChart
         width={1500}
-        height={800}
+        height={400}
         data={gameData(this.props.games)}
         margin={{
             top: 30, right: 50, left: 50, bottom: 5

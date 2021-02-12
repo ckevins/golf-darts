@@ -27,7 +27,7 @@ export class Scores extends React.Component {
         } else if (this.state.selection > -1 && player.games !== []) {
             return (
                 <div>
-                    <table>
+                    <table id='score-sheet'>
                         <thead>
                             <tr>
                                 <th className="name-column">{player.name}</th>
@@ -70,7 +70,7 @@ export class Scores extends React.Component {
     render() {
         const player = this.props.availablePlayers[this.state.selection];
         return (
-            <div className="print">
+            <div className="print-score-sheets">
                 <h2>Score Sheets & Statistics</h2>
                 <label className="select" for="player-select">Choose a darter:</label>
                 <br></br>
