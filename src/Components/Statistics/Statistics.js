@@ -1,10 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
 import './statistics.css'; 
-import { nums } from '../game-input/game-input';
 import { GameStackedAreaChart } from '../charts/stacked-area-chart/stacked-area-chart';
 import { HoleBarChart } from '../charts/hole-bar-chart/hole-bar-chart';
 import { HolePieChart } from '../charts/hole-pie-chart/hole-pie-chart';
+import { HoleStats } from '../hole-stats/hole-stats';
+
+const nums = _.range(1, 19);
+const numsSkipOne = _.range(2, 19);
 
 const totaller = (scores) => {
     const totalsArray = scores.map(array => {
@@ -70,7 +73,7 @@ const getThisScore = (games, scoreValue) => {
     }
 }
 
-const getHoleStats = (hole, games) => {
+export const getHoleStats = (hole, games) => {
     const thisHoleScores = games.map(game => game[hole-1]);
     const thisHoleAvg = (_.sum(thisHoleScores)/thisHoleScores.length).toFixed(2);
     const thisHoleOnes = thisHoleScores.filter(x => x === 1).length;
@@ -98,7 +101,7 @@ const getRankList = (nums, scores) => {
     });
 }
 
-const checkClass = (holeScore) => {
+export const checkClass = (holeScore) => {
     if (holeScore < 4) {
         return "red"
     } else {
@@ -121,8 +124,30 @@ const checkForStackedAreaChart = (games) => {
 }
 
 export class Statistics extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            holeSelection: 0
+        };
+        this.selectHole = this.selectHole.bind(this);
+        this.checkHoleSelection = this.checkHoleSelection.bind(this);
+    }
+    
+    selectHole(event) {
+        this.setState( {holeSelection: event.target.value} );
+    }
+
+    checkHoleSelection(hole, games) {
+        if(this.state.holeSelection === 0){
+            return <HoleStats selection={1} games={games}/>
+        } else {
+            return <HoleStats selection={hole} games={games}/>
+        }
+    }
+
     render () {
         const games = this.props.player.games;
+        const hole = nums[this.state.holeSelection];
         return (
             <div className="stats">
                 <table id="gameTotalTable">
@@ -255,32 +280,12 @@ export class Statistics extends React.Component {
                         {getRankList(nums, games)}
                     </tr>
                 </table>
-                {nums.map(hole => {
-                    const holeArray = getHoleStats(hole, games);
-                    return (
-                        <div>
-                            <h3>Hole {hole}</h3>
-                            <h4 className={checkClass(holeArray[0])}>Avg: {holeArray[0]}</h4>
-                            <HoleBarChart
-                                className="bar-chart"
-                                ones={holeArray[1]}
-                                twos={holeArray[2]}
-                                threes={holeArray[3]} 
-                                fours={holeArray[4]}
-                                fives={holeArray[5]}
-                                sixes={holeArray[6]}
-                            />
-                            <HolePieChart
-                                ones={holeArray[1]}
-                                twos={holeArray[2]}
-                                threes={holeArray[3]} 
-                                fours={holeArray[4]}
-                                fives={holeArray[5]}
-                                sixes={holeArray[6]}
-                            />
-                        </div>
-                    )
-                })}
+                <h3>Hole:</h3>
+                <select name="holes" id="hole-select" onChange={this.selectHole} value={this.state.selection}>
+                    <option value={0}>1</option>
+                    {numsSkipOne.map((holeNumber, i)=> <option value={i+1}>{holeNumber}</option>)}
+                </select>
+                {this.checkHoleSelection(hole, games)}
             </div>
         )
     }
