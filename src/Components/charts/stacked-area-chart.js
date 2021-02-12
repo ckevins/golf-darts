@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
 } from 'recharts';
+import './charts.css';
 
 const gameData = (games) => {
     const data = games.map((game, i) => {
@@ -29,7 +30,8 @@ export class GameStackedAreaChart extends PureComponent {
   render() {
     return (
       <AreaChart
-        width={1500}
+        className='area-chart'
+        width={1200}
         height={400}
         data={gameData(this.props.games)}
         margin={{

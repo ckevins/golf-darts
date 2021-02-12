@@ -25,8 +25,8 @@ const renderCustomizedLabel = ({
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
   return (
-    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} fontSize={"0.6em"} dominantBaseline="central">
-      {`${(percent * 100).toFixed(0)}%`}
+    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} fontSize={"1.5em"} dominantBaseline="central">
+      {`${(percent * 100).toFixed(1)}%`}
     </text>
   );
 };
@@ -42,14 +42,14 @@ export class HolePieChart extends PureComponent {
     const fives = this.props.fives;
     const sixes = this.props.sixes;
     return (
-      <PieChart width={400} height={400}>
+      <PieChart className='pie-chart' width={700} height={600}>
         <Pie
           data={holeData(ones,twos,threes,fours,fives,sixes)}
-          cx={200}
-          cy={200}
+          cx={300}
+          cy={300}
           labelLine={false}
           label={renderCustomizedLabel}
-          outerRadius={150}
+          outerRadius={200}
           fill="#8884d8"
           dataKey="tally"
         >

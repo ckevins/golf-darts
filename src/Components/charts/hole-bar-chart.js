@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import {
   BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid
 } from 'recharts';
-import './hole-bar-chart.css';
-
 
 const colors = ['#e3322b','#ff706b', '#ffbcba', '#aadeeb', '#02b8e6', '#0032e6'];
 
@@ -52,6 +50,7 @@ export class HoleBarChart extends PureComponent {
     const sixes = this.props.sixes;
     return (
       <BarChart
+        className="bar-chart"
         width= {1000}
         height={400}
         data={holeData(ones,twos,threes,fours,fives,sixes)}

@@ -1,32 +1,3 @@
-table {
-    font-size: 3.5em;
-    width: 90%;
-    border-collapse: collapse;
-    align-content: center;
-    text-align: center;
-    margin-top: 100px;
-    margin-bottom: 30px;
-}
-
-th {
-    height: 40px;
-    width: 40px;
-    padding-bottom: 20px;
-    text-align: center;
-}
-
-message {
-    font-size: 2em;
-}
-
-.print-score-sheets td {
-    padding: 20px;
-}
-
-.name-column {
-    width: 300px;
-}
-
 .red {
     color: #e3322b;
 }
@@ -44,4 +15,28 @@ message {
     border-radius: 100%;
     background: #aadeeb;
     color: #0011ad
+}
+
+.score-sheet-div {
+    padding-bottom: 140px;
+}
+
+.score-sheet-div table {
+    width: 80%;
+    padding: 30px;
+}
+
+.score-sheet-div th {
+    font-size: 2em;
+    padding: 10px 0 10px 0;
+}
+
+.score-sheet-div td {
+    font-size: 2em;
+    padding: 10px;
+}
+
+#score-cells td {
+    height: 50px;
+    width: 50px;
 }

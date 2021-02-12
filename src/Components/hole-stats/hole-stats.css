@@ -1,7 +1,11 @@
-h4 {
+.hole-charts {
+    display: flex;
+}
+
+#id {
     font-size: 2em;
 }
 
-.hole-charts {
-    display: flex;
+.hole-stats {
+    padding-bottom: 100;
 }

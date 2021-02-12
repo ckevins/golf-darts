@@ -1,7 +1,7 @@
 import React from 'react';
 import './create-player.css';
 
-export class CreatePlayerProfile extends React.Component {
+export class CreatePlayer extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
@@ -23,11 +23,11 @@ export class CreatePlayerProfile extends React.Component {
     render() {
         return (
             <div>
-                <h3>Create New Player Profile</h3>
+                <h2>Create New Player</h2>
                 <p>If your name does not appear in the Player Select menu, you can create a new player profile here.</p> 
                 <label>New Player Name: </label>
                 <br></br>
-                <input type="text" name="name" id="name" onChange={this.handleChange}></input>
+                <input type="text" name="name" id="new-player-name" onChange={this.handleChange}></input>
                 <button onClick={this.createPlayer}>Create Player</button>
             </div>
         )

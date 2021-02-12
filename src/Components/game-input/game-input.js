@@ -1,6 +1,6 @@
 import React from 'react';
-import './game-input.css';
 import _ from 'lodash';
+import './game-input.css';
 
 export const nums = _.range(1, 19);
 
@@ -94,11 +94,11 @@ export class GameInput extends React.Component {
     }
     render() {
         return (
-            <div className="input-table">
+            <div className='game-input'>
                 <table>
                     <thead>
                         <tr>
-                            <th className="name-column">Player</th>
+                            <th>Player</th>
                             {nums.map(n=> <th key={n}>{n}</th>)}
                             <th>Score</th>
                         </tr>
@@ -121,7 +121,7 @@ export class GameInput extends React.Component {
                                     return (
                                         <td key={si}>
                                             <input 
-                                                className="score-input" 
+                                                id="score-input-box" 
                                                 type="number" 
                                                 value={score || ""} 
                                                 onChange={event => this.handleScoreChange(event, i, si)}/>
@@ -134,15 +134,12 @@ export class GameInput extends React.Component {
                     </tbody>
                 </table>
                 <button 
-                    className="button" 
                     onClick={this.addPlayer}>Add Player
                 </button>
                 <button 
-                    className="button" 
                     onClick={this.removePlayer}>Remove Player
                 </button>
                 <button 
-                    className="button" 
                     onClick={()=> {
                         this.props.onSubmit(this.state.players);
                         this.setState(initialState);

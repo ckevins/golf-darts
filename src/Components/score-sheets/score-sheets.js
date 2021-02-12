@@ -1,9 +1,9 @@
 import React from 'react';
-import './score-sheets.css';
 import { Statistics } from '../statistics/statistics';
 import {nums} from '../game-input/game-input';
+import './score-sheets.css';
 
-export class Scores extends React.Component {
+export class ScoreSheets extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,10 +27,10 @@ export class Scores extends React.Component {
         } else if (this.state.selection > -1 && player.games !== []) {
             return (
                 <div>
-                    <table id='score-sheet'>
+                    <table>
                         <thead>
                             <tr>
-                                <th className="name-column">{player.name}</th>
+                                <th>{player.name}</th>
                                 {nums.map(n=> <th key={n}>{n}</th>)}
                                 <th>Score</th>  
                             </tr>
@@ -38,10 +38,10 @@ export class Scores extends React.Component {
                         <tbody>
                             {player.games.map((s,i)=>{
                                 return (
-                                    <tr>
-                                        <td>Game {i+1}</td>
+                                    <tr id='score-cells'>
+                                        <th>Game {i+1}</th>
                                         {s.map((holeScore, i2) => <td key={i*18+i2} className={this.checkClass(holeScore)}>{holeScore}</td>)}
-                                        <td>{s.reduce((a,b) => a + b)}</td>
+                                        <td >{s.reduce((a,b) => a + b)}</td>
                                     </tr>
                                 )
                             })}
@@ -70,7 +70,7 @@ export class Scores extends React.Component {
     render() {
         const player = this.props.availablePlayers[this.state.selection];
         return (
-            <div className="print-score-sheets">
+            <div className="score-sheet-div">
                 <h2>Score Sheets & Statistics</h2>
                 <label className="select" for="player-select">Choose a darter:</label>
                 <br></br>

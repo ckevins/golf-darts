@@ -3,8 +3,8 @@ import 'semantic-ui-css/semantic.min.css';
 import './app.css';
 import logo from './furmanLogo.png';
 import { GameInput } from '../game-input/game-input';
-import { Scores } from '../score-sheets/score-sheets';
-import { CreatePlayerProfile } from '../create-player/create-player';
+import { ScoreSheets } from '../score-sheets/score-sheets';
+import { CreatePlayer } from '../create-player/create-player';
 
 class App extends React.Component {
   constructor(props) {
@@ -56,9 +56,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <div>
         <header className="App-header">
-          <img src={logo} alt="Furman Logo" className="logo"/>
+          <img src={logo} alt="Furman Logo" id="logo"/>
           <h1>
             Golf Darts
           </h1>
@@ -67,10 +67,10 @@ class App extends React.Component {
           availablePlayers={this.state.availablePlayers} 
           onPlayerCreation={this.updateAvailablePlayers} 
           onSubmit={this.submit}/>
-        <CreatePlayerProfile 
+        <CreatePlayer 
           className="create-player" 
           onPlayerCreation={this.updateAvailablePlayers}/>
-        <Scores 
+        <ScoreSheets
           availablePlayers={this.state.availablePlayers} 
           className="score-sheet"/>
       </div>

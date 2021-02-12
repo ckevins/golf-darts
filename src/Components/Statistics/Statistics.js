@@ -1,9 +1,8 @@
 import React from 'react';
+import './statistics.css';
 import _ from 'lodash';
-import './statistics.css'; 
-import { GameStackedAreaChart } from '../charts/stacked-area-chart/stacked-area-chart';
-import { HoleBarChart } from '../charts/hole-bar-chart/hole-bar-chart';
-import { HolePieChart } from '../charts/hole-pie-chart/hole-pie-chart';
+import { GameStackedAreaChart } from '../charts/stacked-area-chart';
+import { HolePieChart } from '../charts/hole-pie-chart';
 import { HoleStats } from '../hole-stats/hole-stats';
 
 const nums = _.range(1, 19);
@@ -113,7 +112,7 @@ export const checkClass = (holeScore) => {
 const checkForStackedAreaChart = (games) => {
     if(games.length > 1) {
         return (
-            <div className="stacked-area-chart">
+            <div>
                 <GameStackedAreaChart 
                 games={games}/>
             </div>
@@ -150,7 +149,7 @@ export class Statistics extends React.Component {
         const hole = nums[this.state.holeSelection];
         return (
             <div className="stats">
-                <table id="gameTotalTable">
+                <table id="game-total-table">
                     <tr>
                         <th>Games Played:</th>
                         <td>{games.length}</td>
@@ -189,7 +188,7 @@ export class Statistics extends React.Component {
                     </tr>
                 </table>
                 {checkForStackedAreaChart(games)}
-                <table>
+                <table id='all-holes-table'>
                     <tr>
                         <th></th>
                         <th>Ones</th>
@@ -256,7 +255,7 @@ export class Statistics extends React.Component {
                     fives={getThisScore(games,5)[0]}
                     sixes={getThisScore(games,6)[0]}
                 />
-                <table>
+                <table id='rank-list-table'>
                     <tr>
                         <th>Best Hole</th>
                         <th>&#8592;</th>
