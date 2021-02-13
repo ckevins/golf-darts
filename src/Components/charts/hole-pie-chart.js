@@ -42,11 +42,11 @@ export class HolePieChart extends PureComponent {
     const fives = this.props.fives;
     const sixes = this.props.sixes;
     return (
-      <PieChart className='pie-chart' width={700} height={600}>
+      <PieChart className='pie-chart' width={700} height={500}>
         <Pie
           data={holeData(ones,twos,threes,fours,fives,sixes)}
-          cx={300}
-          cy={300}
+          cx={350}
+          cy={250}
           labelLine={false}
           label={renderCustomizedLabel}
           outerRadius={200}

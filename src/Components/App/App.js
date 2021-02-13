@@ -21,7 +21,7 @@ class App extends React.Component {
     };
     
     this.submit = this.submit.bind(this);
-    this.updateAvailablePlayers = this.updateAvailablePlayers.bind(this);
+    this.createPlayer = this.createPlayer.bind(this);
     this.getAllPlayers = this.getAllPlayers.bind(this);
   }
 
@@ -55,34 +55,7 @@ class App extends React.Component {
     .then(()=> this.getAllPlayers())
   }
 
-  render() {
-    return (
-      <div>
-        <div className="cody-evins-logo">
-          <img src={codyEvinsLogo} alt="Cody Evins Logo" id="CE"/>
-        </div>
-        <header className="App-header">
-          <img src={logo} alt="Furman Logo" id="logo"/>
-          <h1 id="page-title">
-            Furman Theatre <br></br>
-            Darts
-          </h1>
-        </header>
-        <GameInput 
-          availablePlayers={this.state.availablePlayers} 
-          onPlayerCreation={this.updateAvailablePlayers} 
-          onSubmit={this.submit}/>
-        <CreatePlayer 
-          className="create-player" 
-          onPlayerCreation={this.updateAvailablePlayers}/>
-        <ScoreSheets
-          availablePlayers={this.state.availablePlayers} 
-          className="score-sheet"/>
-      </div>
-    )
-  }
-
-  updateAvailablePlayers(newPlayer) {
+  createPlayer(newPlayer) {
     const url = 'http://localhost:4000/api/players';
     fetch (url, {
       method: 'POST',
@@ -93,17 +66,39 @@ class App extends React.Component {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(`Player Created >>>> Name: ${data.player.name}`);
-        alert(`New player created:
-
-        ${data.player.name}
-
-        They can now be selected from all player selection menus.
-        `);
+        console.log(`Team Created >>>> Name: ${data.player.name}`);
         this.getAllPlayers();
+        document.getElementById('team-creation-confirmation').innerHTML = `Team Created: ${data.player.name}`;
+        document.getElementById('team-creation-message').innerHTML = `Your new team can now be found in all team selection menus`;
       })
   } 
 
+  render() {
+    return (
+      <div>
+        <div className="cody-evins-logo">
+          <img src={codyEvinsLogo} alt="Cody Evins Logo" id="CE"/>
+        </div>
+        <header className="App-header">
+          <img src={logo} alt="Furman Logo" id="logo"/>
+          <h1 id="page-title">
+            Furman Theatre Darts
+          </h1>
+        </header>
+        <GameInput 
+          availablePlayers={this.state.availablePlayers} 
+          onSubmit={this.submit}/>
+        <CreatePlayer 
+          className="create-player" 
+          onPlayerCreation={this.createPlayer}/>
+        <p id='team-creation-confirmation'></p>
+        <p id='team-creation-message'></p>
+        <ScoreSheets
+          availablePlayers={this.state.availablePlayers} 
+          className="score-sheet"/>
+      </div>
+    )
+  }
 }
 
 export default App;

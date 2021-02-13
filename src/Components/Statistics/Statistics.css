@@ -20,6 +20,11 @@
     padding-top: 40px;
 }
 
+#all-holes-table-title {
+    text-align: center;
+    column-span: all;
+}
+
 #all-holes-table th{
     font-size: 2em;
 }

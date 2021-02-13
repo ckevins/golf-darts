@@ -18,7 +18,7 @@ export class CreatePlayer extends React.Component {
             name: this.state.input,
             games: []
         };
-        this.props.onPlayerCreation(newPlayer); 
+        this.props.onPlayerCreation(newPlayer);
     }
     render() {
         return (

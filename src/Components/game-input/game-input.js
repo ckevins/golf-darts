@@ -31,6 +31,7 @@ export class GameInput extends React.Component {
         this.removePlayer = this.removePlayer.bind(this);
         this.handleNameSelection = this.handleNameSelection.bind(this);
         this.handleScoreChange = this.handleScoreChange.bind(this);
+        this.submit = this.submit.bind(this);
     }
     addPlayer() {
         console.log("Add Player Clicked");
@@ -70,6 +71,7 @@ export class GameInput extends React.Component {
             }
         })
     }
+
     handleScoreChange(event, playerIndex, scoreIndex) {
         this.setState(state => {
             return {
@@ -92,6 +94,30 @@ export class GameInput extends React.Component {
             }
         })
     }
+
+    submit() {
+        const isLessThanOne = element => element < 1;
+        const isMoreThanSix = element => element > 6;
+        const hasErrors = this.state.players.map(playerObj => {
+            if(playerObj.name === "") {
+                alert(`One or more teams in this game has not selected a name.`);
+                return true;
+            } else if (playerObj.scores.some(isLessThanOne) || playerObj.scores.some(isMoreThanSix)) {
+                alert(`One or more scores in the game is not between 1 and 6.`);
+                return true;
+            } else {
+                return false;
+            }
+        });
+        if (hasErrors.includes(true)) {
+            return;
+        } else {
+            this.props.onSubmit(this.state.players);
+            this.setState(initialState);
+            resetSelection();
+        }
+    }
+
     render() {
         return (
             <div className='game-input'>
@@ -140,10 +166,7 @@ export class GameInput extends React.Component {
                     onClick={this.removePlayer}>Remove Team
                 </button>
                 <button 
-                    onClick={()=> {
-                        this.props.onSubmit(this.state.players);
-                        this.setState(initialState);
-                        resetSelection()}}>
+                    onClick={()=> {this.submit()}}>
                             Submit Scores
                 </button>
             </div>

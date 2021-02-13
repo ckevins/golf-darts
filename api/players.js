@@ -75,6 +75,7 @@ playersRouter.post('/', (req, res, next) => {
             } else {
                 db.get(`SELECT * FROM Players WHERE player_id = ${this.lastID}`, (error, player) =>{
                     if(error){
+                        res.send(error);
                         next(error)
                     } else {
                         res.status(200).json({ player: player });

@@ -188,7 +188,9 @@ export class Statistics extends React.Component {
                     </tr>
                 </table>
                 {checkForStackedAreaChart(games)}
+                <h3>Score Spread</h3>
                 <table id='all-holes-table'>
+                    <tbody>
                     <tr>
                         <th></th>
                         <th>Ones</th>
@@ -245,6 +247,7 @@ export class Statistics extends React.Component {
                         <td>{getThisScore(games, 'blues')[1].toFixed(1)}%</td>
                         <td></td>
                     </tr>
+                    </tbody>
                 </table>
                 <HolePieChart
                     id='all-scores-pie-chart'
