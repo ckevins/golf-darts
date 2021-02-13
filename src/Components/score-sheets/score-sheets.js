@@ -21,7 +21,7 @@ export class ScoreSheets extends React.Component {
         if (this.state.selection > -1 && player.games.length === 0) {
             return (
                 <div>
-                    <message>This player does not have any submitted scores yet. Play some darts!</message>
+                    <message>This team does not have any submitted scores yet. Play some darts!</message>
                 </div>
             );
         } else if (this.state.selection > -1 && player.games !== []) {
@@ -51,7 +51,7 @@ export class ScoreSheets extends React.Component {
                 </div>
             )
         } else {
-            return <p>No player selected.</p>
+            return <p>No team selected.</p>
         }
     }
 
@@ -72,10 +72,10 @@ export class ScoreSheets extends React.Component {
         return (
             <div className="score-sheet-div">
                 <h2>Score Sheets & Statistics</h2>
-                <label className="select" for="player-select">Choose a darter:</label>
+                <label className="select" for="player-select">Choose a team:</label>
                 <br></br>
                 <select name="players" id="player-select" onChange={this.selectPlayer} value={this.state.selection}>
-                    <option value={-1}>--Please choose a darter--</option>
+                    <option value={-1}>--Please choose a team--</option>
                     {this.props.availablePlayers.map((player, i)=> <option value={i}>{player.name}</option>)}
                 </select>
                 {this.checkScores(player)}

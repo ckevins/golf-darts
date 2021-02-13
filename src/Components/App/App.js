@@ -2,6 +2,7 @@ import React from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import './app.css';
 import logo from './furmanLogo.png';
+import codyEvinsLogo from './cody-evins-logo-name.png';
 import { GameInput } from '../game-input/game-input';
 import { ScoreSheets } from '../score-sheets/score-sheets';
 import { CreatePlayer } from '../create-player/create-player';
@@ -57,10 +58,14 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <div className="cody-evins-logo">
+          <img src={codyEvinsLogo} alt="Cody Evins Logo" id="CE"/>
+        </div>
         <header className="App-header">
           <img src={logo} alt="Furman Logo" id="logo"/>
-          <h1>
-            Golf Darts
+          <h1 id="page-title">
+            Furman Theatre <br></br>
+            Darts
           </h1>
         </header>
         <GameInput 

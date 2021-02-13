@@ -98,7 +98,7 @@ export class GameInput extends React.Component {
                 <table>
                     <thead>
                         <tr>
-                            <th>Player</th>
+                            <th>Team</th>
                             {nums.map(n=> <th key={n}>{n}</th>)}
                             <th>Score</th>
                         </tr>
@@ -134,17 +134,17 @@ export class GameInput extends React.Component {
                     </tbody>
                 </table>
                 <button 
-                    onClick={this.addPlayer}>Add Player
+                    onClick={this.addPlayer}>Add Team
                 </button>
                 <button 
-                    onClick={this.removePlayer}>Remove Player
+                    onClick={this.removePlayer}>Remove Team
                 </button>
                 <button 
                     onClick={()=> {
                         this.props.onSubmit(this.state.players);
                         this.setState(initialState);
                         resetSelection()}}>
-                            Submit
+                            Submit Scores
                 </button>
             </div>
         )
