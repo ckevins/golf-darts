@@ -64,12 +64,23 @@ class App extends React.Component {
       },
       body: JSON.stringify(newPlayer)
     })
-      .then(response => response.json())
+      .then(response => {
+        console.log(response.ok);
+        if(!response.ok) {
+          throw new Error('Something went wrong with API request');
+        }
+        return response.json()
+      })
       .then(data => {
         console.log(`Team Created >>>> Name: ${data.player.name}`);
         this.getAllPlayers();
         document.getElementById('team-creation-confirmation').innerHTML = `Team Created: ${data.player.name}`;
-        document.getElementById('team-creation-message').innerHTML = `Your new team can now be found in all team selection menus`;
+        document.getElementById('team-creation-message').innerHTML = `Your new team can now be found in all team selection menus.`;
+      })
+      .catch(error => {
+        console.error('This team name is probably taken.', error);
+        document.getElementById('team-creation-confirmation').innerHTML = `Sorry! This team name is taken.`;
+        document.getElementById('team-creation-message').innerHTML = `Please enter a new name and try again.`;
       })
   } 
 
