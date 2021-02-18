@@ -29,7 +29,7 @@ class App extends React.Component {
   // availablePlayer: [{player_id: 1, name: 'Cody', scores: [[game1],[game2]]}]
 
   getAllPlayers() {
-    fetch('http://localhost:4000/api/players')
+    fetch('http://localhost:4000/sqliteApi/players')
       .then(response => response.json())
       .then(data => {
         if(data.players.length > 0) {
@@ -44,7 +44,7 @@ class App extends React.Component {
   }
 
   submit(players) {
-    const url = 'http://localhost:4000/api/players/scores';
+    const url = 'http://localhost:4000/sqliteApi/players/scores';
     fetch (url, {
       method: 'POST',
       headers: {
@@ -56,7 +56,7 @@ class App extends React.Component {
   }
 
   createPlayer(newPlayer) {
-    const url = 'http://localhost:4000/api/players';
+    const url = 'http://localhost:4000/sqliteApi/players';
     fetch (url, {
       method: 'POST',
       headers: {

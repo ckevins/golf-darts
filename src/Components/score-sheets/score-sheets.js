@@ -18,6 +18,7 @@ export class ScoreSheets extends React.Component {
     }
     
     checkScores(player) {
+        console.log(player);
         if (this.state.selection > -1 && player.games.length === 0) {
             return (
                 <div>
