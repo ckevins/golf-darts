@@ -9,13 +9,7 @@ const client = new Client({
     port: 5432,
     ssl: true
 });
-client.connect(err => {
-    if (err) {
-        console.error('Connection error', err.stack);
-    } else {
-        console.log('Connected')
-    }
-});
+
 
 const dropPlayers = `DROP TABLE IF EXISTS Players`;
 const createPlayers = `CREATE TABLE Players (
@@ -35,32 +29,41 @@ const createScores = `CREATE TABLE Scores (
     FOREIGN KEY (game_id) REFERENCES Games(game_id),
     FOREIGN KEY (player_id) REFERENCES Players(player_id))`;
 
-const dropAll = () => {
-    client.query(dropScores)
-        .then(result => console.log(result))
+const dropAll = async() => {
+    await client.query(dropScores)
+        .then(() => console.log('Table Dropped: Scores'))
         .catch(error => console.error(error.stack));
-    client.query(dropGames)
-        .then(result => console.log(result))
+    await client.query(dropGames)
+        .then(() => console.log('Table Dropped: Games'))
         .catch(error => console.error(error.stack));
-    client.query(dropPlayers)
-        .then(result => console.log(result))
+    await client.query(dropPlayers)
+        .then(() => console.log('Table Dropped: Players'))
         .catch(error => console.error(error.stack));
 };
 
-const createAll = () => {
-    setTimeout(function() {
-        client.query(createPlayers)
-            .then(result => console.log(result))
-            .catch(error => console.error(error.stack));
-        client.query(createGames)
-            .then(result => console.log(result))
-            .catch(error => console.error(error.stack));
-        client.query(createScores)
-            .then(result => console.log(result))
-            .catch(error => console.error(error.stack));
-    }, 2000)
-    
+const createAll = async() => {
+    await client.query(createPlayers)
+        .then(() => console.log('Table Created: Players'))
+        .catch(error => console.error(error.stack));
+    await client.query(createGames)
+        .then(() => console.log('Table Created: Games'))
+        .catch(error => console.error(error.stack));
+    await client.query(createScores)
+        .then(() => console.log('Table Created: Scores'))
+        .catch(error => console.error(error.stack));
 }
 
-dropAll();
-createAll();
+const run = async () => {
+    await client.connect(err => {
+        if (err) {
+            console.error('Connection error', err.stack);
+        } else {
+            console.log('Connected')
+        }
+    });
+    await dropAll();
+    await createAll();
+    await client.end();
+}
+
+run();

@@ -54,7 +54,7 @@ class App extends React.Component {
       },
       body: JSON.stringify(players)
     })
-    .then(()=> this.getAllPlayers())
+      .then(()=> this.getAllPlayers())
   }
 
   createPlayer(newPlayer) {
@@ -74,7 +74,6 @@ class App extends React.Component {
         return response.json()
       })
       .then(data => {
-        console.log(data);
         console.log(`Team Created >>>> Name: ${newPlayer.name}`);
         this.getAllPlayers();
         document.getElementById('team-creation-confirmation').innerHTML = `Team Created: ${newPlayer.name}`;

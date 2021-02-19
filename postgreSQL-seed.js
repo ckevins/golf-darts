@@ -24,7 +24,7 @@ const insertPlayers = `INSERT INTO Players (name)
     ('Tanner E.'),
     ('Meg H.')`;
 
-const insertDates = `INSERT INTO Games (date)
+const insertGames = `INSERT INTO Games (date)
     VALUES 
     (NOW()),
     (NOW()),
@@ -37,7 +37,7 @@ const insertDates = `INSERT INTO Games (date)
     (NOW()),
     (NOW())`;
 
-const insertGames = `INSERT INTO Scores (game_id, player_id, hole_number, score)
+const insertScores = `INSERT INTO Scores (game_id, player_id, hole_number, score)
     VALUES 
     (1, 1, 1, 4),
     (1, 1, 2, 4),
@@ -239,14 +239,14 @@ const insertGames = `INSERT INTO Scores (game_id, player_id, hole_number, score)
     (10, 1, 18, 4)`;
 
 client.query(insertPlayers)
-    .then(result => console.log(result))
-    .catch(error => console.error(error.stack));
-
-client.query(insertDates)
-    .then(result => console.log(result))
+    .then(() => console.log('Players Table Populated'))
     .catch(error => console.error(error.stack));
 
 client.query(insertGames)
-    .then(result => console.log(result))
+    .then(() => console.log('Games Table Populated'))
+    .catch(error => console.error(error.stack));
+
+client.query(insertScores)
+    .then(() => console.log('Scores Table Populated'))
     .catch(error => console.error(error.stack))
     .then(()=> client.end())

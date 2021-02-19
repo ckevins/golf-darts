@@ -1,17 +1,9 @@
 const playersRouter = require('express').Router();
 const scoresRouter = require('./scores');
+const client = require('./client.js');
 
-const { Client } = require('pg');
+
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
-
-const client = new Client({
-    user: 'nylnkldjikgysf',
-    host: 'ec2-54-144-45-5.compute-1.amazonaws.com',
-    database: 'da8bts90caraq7',
-    password: '2516359f318ab2fefead8c609c8653d6eabd2eb01ad7da552fa2b1e22254da7e',
-    port: 5432,
-    ssl: true
-});
 
 client.connect(err => {
     if (err) {
@@ -32,7 +24,7 @@ playersRouter.get('/', (req, res, next) => {
         ORDER BY Scores.game_id, Scores.hole_number) AS A
         GROUP BY A.name`, 
         (error, players) => {
-            console.log(players.rows);
+            console.log('Players Retrieved');
             if(error) {
                 next(error);
                 client.end();
