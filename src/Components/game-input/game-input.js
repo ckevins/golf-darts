@@ -55,7 +55,6 @@ export class GameInput extends React.Component {
         })
     }
     handleNameSelection(e, index) {
-        console.log(e);
         this.setState(state => {
             return {
                 players: state.players.map((p, i) => {

@@ -35,28 +35,32 @@ const createScores = `CREATE TABLE Scores (
     FOREIGN KEY (game_id) REFERENCES Games(game_id),
     FOREIGN KEY (player_id) REFERENCES Players(player_id))`;
 
-client.query(dropPlayers)
-    .then(result => console.log(result))
-    .catch(error => console.error(error.stack))
-    .then(() => {
+const dropAll = () => {
+    client.query(dropScores)
+        .then(result => console.log(result))
+        .catch(error => console.error(error.stack));
+    client.query(dropGames)
+        .then(result => console.log(result))
+        .catch(error => console.error(error.stack));
+    client.query(dropPlayers)
+        .then(result => console.log(result))
+        .catch(error => console.error(error.stack));
+};
+
+const createAll = () => {
+    setTimeout(function() {
         client.query(createPlayers)
             .then(result => console.log(result))
-            .catch(error => console.error(error.stack))
-    });
-client.query(dropGames)
-    .then(result => console.log(result))
-    .catch(error => console.error(error.stack))
-    .then(() => {
+            .catch(error => console.error(error.stack));
         client.query(createGames)
             .then(result => console.log(result))
-            .catch(error => console.error(error.stack))
-    });
-client.query(dropScores)
-    .then(result => console.log(result))
-    .catch(error => console.error(error.stack))
-    .then(() => {
+            .catch(error => console.error(error.stack));
         client.query(createScores)
             .then(result => console.log(result))
-            .catch(error => console.error(error.stack))
-            .then(()=> client.end());
-    });
+            .catch(error => console.error(error.stack));
+    }, 2000)
+    
+}
+
+dropAll();
+createAll();

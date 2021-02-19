@@ -1,7 +1,5 @@
 const playersRouter = require('express').Router();
-const sqlite3 = require('sqlite3');
 const scoresRouter = require('./scores');
-const db = new sqlite3.Database('./database.sqlite');
 
 const { Client } = require('pg');
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
@@ -92,4 +90,4 @@ playersRouter.post('/', (req, res, next) => {
 
 playersRouter.use('/scores', scoresRouter);
 
-module.exports = playersRouter;
+module.exports = {playersRouter, client};

@@ -1,6 +1,6 @@
 const express = require('express');
 const postgresApiRouter = express.Router();
-const playersRouter = require('./players');
+const playersRouter = require('./players').playersRouter;
 
 postgresApiRouter.use('/players', playersRouter);
 
