@@ -18,7 +18,6 @@ export class ScoreSheets extends React.Component {
     }
     
     checkScores(player) {
-        console.log(player);
         if (this.state.selection > -1 && player.games.length === 0) {
             return (
                 <div>
@@ -39,10 +38,10 @@ export class ScoreSheets extends React.Component {
                         <tbody>
                             {player.games.map((s,i)=>{
                                 return (
-                                    <tr>
+                                    <tr key={i}>
                                         <th>Game {i+1}</th>
                                         {s.map((holeScore, i2) => <td key={i*18+i2} className={this.checkClass(holeScore)} id='score-cells'>{holeScore}</td>)}
-                                        <td >{s.reduce((a,b) => a + b)}</td>
+                                        <td key={`${i} total`}>{s.reduce((a,b) => a + b)}</td>
                                     </tr>
                                 )
                             })}
@@ -77,7 +76,7 @@ export class ScoreSheets extends React.Component {
                 <br></br>
                 <select name="players" id="player-select" onChange={this.selectPlayer} value={this.state.selection}>
                     <option value={-1}>--Please choose a team--</option>
-                    {this.props.availablePlayers.map((player, i)=> <option value={i}>{player.name}</option>)}
+                    {this.props.availablePlayers.map((player, i)=> <option key={i} value={i}>{player.name}</option>)}
                 </select>
                 {this.checkScores(player)}
             </div>

@@ -14,6 +14,7 @@ const client = new Client({
     port: 5432,
     ssl: true
 });
+
 client.connect(err => {
     if (err) {
         console.error('Connection error', err.stack);
@@ -24,18 +25,21 @@ client.connect(err => {
 
 //CALLED TO SET STATE FOR SELECTION BOXES
 playersRouter.get('/', (req, res, next) => {
-    client.query(`SELECT Players.name, ARRAY_AGG(Scores.score) AS games
-        FROM Players 
-        LEFT JOIN Scores 
-        ON Players.player_id = Scores.player_id
-        GROUP BY Players.name
-        ORDER BY Scores.game_id, Scores.hole_number`, 
+    client.query(`SELECT A.name, ARRAY_AGG(A.score) as games
+        FROM
+        (SELECT Players.name, Scores.score
+        FROM players
+        LEFT JOIN scores
+        ON players.player_id = scores.player_id
+        ORDER BY Scores.game_id, Scores.hole_number) AS A
+        GROUP BY A.name`, 
         (error, players) => {
+            console.log(players.rows);
             if(error) {
                 next(error);
                 client.end();
             } else {
-                players.forEach(player => {
+                players.rows.forEach(player => {
                     if(player.games === null) {
                         player.games = [];
                     } else {
@@ -57,8 +61,7 @@ playersRouter.get('/', (req, res, next) => {
                         player.games = games;
                     }
                 })
-                res.status(200).json({ players: players });
-                client.end();
+                res.status(200).json({ players: players.rows });
             }
     })
 });
@@ -69,22 +72,21 @@ playersRouter.post('/', (req, res, next) => {
     if (!name) {
         res.status(400).send('A new player must have a name.');
     } else {
-        const sql = `INSERT INTO Players (name) VALUES ($name)`;
-        const values = { $name: name };
-        db.run(sql, values, function(error) {
-            if(error){
-                next(error)
-            } else {
-                db.get(`SELECT * FROM Players WHERE player_id = ${this.lastID}`, (error, player) =>{
-                    if(error){
-                        res.send(error);
-                        next(error)
-                    } else {
-                        res.status(200).json({ player: player });
-                    }
-                })
-            }
-        })
+        const insertQuery = {
+            name: 'insert-player',
+            text: 'INSERT INTO Players (name) VALUES ($1)',
+            values: [name],
+            rowMode: 'array'
+        };
+        client.query(insertQuery)
+            .then(response => {
+                console.log(response);
+                res.status(200).send(response);
+            })
+            .catch(e => {
+                console.error(e.stack);
+                res.status(400).send();
+            })
     }
 });
 

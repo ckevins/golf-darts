@@ -139,7 +139,7 @@ export class GameInput extends React.Component {
                                         onChange={event => this.handleNameSelection(event,i)} >
                                         <option value={-1}>Select: </option>
                                         {this.props.availablePlayers.map(playerObj => {
-                                            return <option>{playerObj.name}</option>})
+                                            return <option key={`Row ${i}: ${playerObj.name}`}>{playerObj.name}</option>})
                                         }
                                     </select>
                                 </td>
@@ -167,7 +167,7 @@ export class GameInput extends React.Component {
                 </button>
                 <button 
                     onClick={()=> {this.submit()}}>
-                            Submit Scores
+                    Submit Scores
                 </button>
             </div>
         )

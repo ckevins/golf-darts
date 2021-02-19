@@ -7,6 +7,8 @@ import { GameInput } from '../game-input/game-input';
 import { ScoreSheets } from '../score-sheets/score-sheets';
 import { CreatePlayer } from '../create-player/create-player';
 
+const api = 'postgresApi';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -29,7 +31,7 @@ class App extends React.Component {
   // availablePlayer: [{player_id: 1, name: 'Cody', scores: [[game1],[game2]]}]
 
   getAllPlayers() {
-    fetch('http://localhost:4000/sqliteApi/players')
+    fetch('http://localhost:4000/'+ api +'/players')
       .then(response => response.json())
       .then(data => {
         if(data.players.length > 0) {
@@ -44,7 +46,7 @@ class App extends React.Component {
   }
 
   submit(players) {
-    const url = 'http://localhost:4000/sqliteApi/players/scores';
+    const url = 'http://localhost:4000/'+ api +'/players/scores';
     fetch (url, {
       method: 'POST',
       headers: {
@@ -56,7 +58,7 @@ class App extends React.Component {
   }
 
   createPlayer(newPlayer) {
-    const url = 'http://localhost:4000/sqliteApi/players';
+    const url = 'http://localhost:4000/'+ api +'/players';
     fetch (url, {
       method: 'POST',
       headers: {
@@ -72,9 +74,10 @@ class App extends React.Component {
         return response.json()
       })
       .then(data => {
-        console.log(`Team Created >>>> Name: ${data.player.name}`);
+        console.log(data);
+        console.log(`Team Created >>>> Name: ${newPlayer.name}`);
         this.getAllPlayers();
-        document.getElementById('team-creation-confirmation').innerHTML = `Team Created: ${data.player.name}`;
+        document.getElementById('team-creation-confirmation').innerHTML = `Team Created: ${newPlayer.name}`;
         document.getElementById('team-creation-message').innerHTML = `Your new team can now be found in all team selection menus.`;
       })
       .catch(error => {
