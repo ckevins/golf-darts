@@ -1,7 +1,6 @@
 import React from 'react';
 import './hole-stats.css'
-import { getHoleStats } from '../statistics/statistics';
-import { checkClass } from '../statistics/statistics';
+import { getHoleStats, checkClass } from '../stat-math';
 import { HoleBarChart } from '../charts/hole-bar-chart';
 import { HolePieChartSingle } from '../charts/hole-pie-chart-single';
 
