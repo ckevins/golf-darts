@@ -23,12 +23,14 @@ export class CreatePlayer extends React.Component {
     render() {
         return (
             <div>
-                <h2>Create Team</h2>
+                <h2>Create a Team</h2>
                 <p>If your team name does not appear in the Team Select menu, you can create a new team here.</p> 
                 <label>New Team Name: </label>
                 <br></br>
                 <input type="text" name="name" id="new-player-name" onChange={this.handleChange}></input>
                 <button onClick={this.createPlayer}>Create Team</button>
+                <p id='team-creation-confirmation'>{this.props.teamConfirmation}</p>
+                <p id='team-creation-message'>{this.props.teamMessage}</p>
             </div>
         )
     }

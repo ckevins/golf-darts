@@ -1,3 +1,11 @@
+#score-sheet-player-select {
+    height: 60px;
+    width: auto;
+    padding: 0 20px;
+    font-size: 2.5em;
+    text-align: center;
+}
+
 .red {
     color: #e3322b;
 }
@@ -39,4 +47,13 @@
 #score-cells td {
     height: 50px;
     width: 50px;
+}
+
+#game {
+    border-right: dotted 5px white;
+}
+
+#total {
+    font-weight: bolder;
+    border-left: dotted 5px white;
 }

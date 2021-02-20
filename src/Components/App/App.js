@@ -1,4 +1,10 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import 'semantic-ui-css/semantic.min.css';
 import './app.css';
 import logo from './furmanLogo.png';
@@ -8,6 +14,11 @@ import { ScoreSheets } from '../score-sheets/score-sheets';
 import { CreatePlayer } from '../create-player/create-player';
 
 const api = 'postgresApi';
+
+let scoresConfirmation = '';
+
+let teamConfirmation = '';
+let teamMessage = '';
 
 class App extends React.Component {
   constructor(props) {
@@ -54,7 +65,10 @@ class App extends React.Component {
       },
       body: JSON.stringify(players)
     })
-      .then(()=> this.getAllPlayers())
+    .then(() => {
+      this.getAllPlayers();
+      scoresConfirmation = `Scores submitted!`
+    })
   }
 
   createPlayer(newPlayer) {
@@ -76,8 +90,8 @@ class App extends React.Component {
       .then(data => {
         console.log(`Team Created >>>> Name: ${newPlayer.name}`);
         this.getAllPlayers();
-        document.getElementById('team-creation-confirmation').innerHTML = `Team Created: ${newPlayer.name}`;
-        document.getElementById('team-creation-message').innerHTML = `Your new team can now be found in all team selection menus.`;
+        teamConfirmation = `Team Created: ${newPlayer.name}`;
+        teamMessage = `Your new team can now be found in all team selection menus.`;
       })
       .catch(error => {
         console.error('This team name is probably taken.', error);
@@ -98,20 +112,54 @@ class App extends React.Component {
             Furman Theatre Darts
           </h1>
         </header>
-        <GameInput 
-          availablePlayers={this.state.availablePlayers} 
-          onSubmit={this.submit}/>
-        <CreatePlayer 
-          className="create-player" 
-          onPlayerCreation={this.createPlayer}/>
-        <p id='team-creation-confirmation'></p>
-        <p id='team-creation-message'></p>
-        <ScoreSheets
-          availablePlayers={this.state.availablePlayers} 
-          className="score-sheet"/>
+        <Router>
+          <div className='router'>
+            <nav>
+              <ul>
+                <li>
+                  <Link to='/'>Play</Link>
+                </li>
+                <li>
+                  <Link to='/create-a-team'>Create a Team</Link>
+                </li>
+                <li>
+                  <Link to='/statistics'>Statistics</Link>
+                </li>
+                <li>
+                  <Link to='/rankings'>Rankings</Link>
+                </li>
+              </ul>
+            </nav>
+            <Switch>
+              <Route path='/create-a-team'>
+                <CreatePlayer 
+                  className="create-player" 
+                  onPlayerCreation={this.createPlayer}
+                  teamConfirmation={teamConfirmation}
+                  teamMessage={teamMessage}/>
+              </Route>
+              <Route path='/statistics'>
+                <ScoreSheets
+                  availablePlayers={this.state.availablePlayers} 
+                  className="score-sheet"/>
+              </Route>
+              <Route path='/rankings'>
+                  {/* rankings */}
+              </Route>
+              <Route path='/'>
+                <GameInput 
+                  availablePlayers={this.state.availablePlayers} 
+                  onSubmit={this.submit}
+                  scoresConfirmation={scoresConfirmation}/>
+              </Route>
+            </Switch>
+          </div>
+        </Router>
       </div>
     )
   }
 }
+
+
 
 export default App;

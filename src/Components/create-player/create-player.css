@@ -1,3 +1,8 @@
 #new-player-name {
     height: 50px;
+    width: 400px;
+    font-size: 3em;
+    text-align: right;
+    border-radius: 10px;
+    padding: 0 10px;
 }

@@ -20,9 +20,9 @@ client.connect(err => {
 
 const insertPlayers = `INSERT INTO Players (name) 
     VALUES 
-    ('Cody E.'),
-    ('Tanner E.'),
-    ('Meg H.')`;
+    ('Bob'),
+    ('Linda'),
+    ('Teddy')`;
 
 const insertGames = `INSERT INTO Games (date)
     VALUES 

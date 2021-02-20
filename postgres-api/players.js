@@ -64,13 +64,12 @@ playersRouter.post('/', (req, res, next) => {
     } else {
         const insertQuery = {
             name: 'insert-player',
-            text: 'INSERT INTO Players (name) VALUES ($1)',
-            values: [name],
-            rowMode: 'array'
+            text: 'INSERT INTO Players (name) VALUES ($1) RETURNING name',
+            values: [name]
         };
         client.query(insertQuery)
             .then(response => {
-                console.log(response);
+                console.log(`Team Created: ${response.rows[0].name}`);
                 res.status(200).send(response);
             })
             .catch(e => {

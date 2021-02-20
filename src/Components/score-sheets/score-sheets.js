@@ -12,6 +12,7 @@ export class ScoreSheets extends React.Component {
         this.selectPlayer = this.selectPlayer.bind(this);
         this.checkScores = this.checkScores.bind(this);
         this.checkClass = this.checkClass.bind(this);
+        this.checkTotalClass = this.checkTotalClass.bind(this);
     }
     selectPlayer(event) {
         this.setState ({selection: event.target.value});
@@ -39,9 +40,9 @@ export class ScoreSheets extends React.Component {
                             {player.games.map((s,i)=>{
                                 return (
                                     <tr key={i}>
-                                        <th>Game {i+1}</th>
+                                        <th id='game'>Game {i+1}</th>
                                         {s.map((holeScore, i2) => <td key={i*18+i2} className={this.checkClass(holeScore)} id='score-cells'>{holeScore}</td>)}
-                                        <td key={`${i} total`}>{s.reduce((a,b) => a + b)}</td>
+                                        <td className={this.checkTotalClass((s.reduce((a,b) => a + b)))} id='total' key={`${i} total`}>{s.reduce((a,b) => a + b)}</td>
                                     </tr>
                                 )
                             })}
@@ -67,15 +68,23 @@ export class ScoreSheets extends React.Component {
         }
     }
 
+    checkTotalClass (total) {
+        if (total < 72) {
+            return "red"
+        } else {
+            return "blue"
+        }
+    }
+
     render() {
         const player = this.props.availablePlayers[this.state.selection];
         return (
             <div className="score-sheet-div">
-                <h2>Score Sheets & Statistics</h2>
-                <label className="select" for="player-select">Choose a team:</label>
+                <h2>Statistics</h2>
+                <label className="select" for="player-select">Team:</label>
                 <br></br>
-                <select name="players" id="player-select" onChange={this.selectPlayer} value={this.state.selection}>
-                    <option value={-1}>--Please choose a team--</option>
+                <select name="players" id="score-sheet-player-select" onChange={this.selectPlayer} value={this.state.selection}>
+                    <option value={-1}>--Choose a team--</option>
                     {this.props.availablePlayers.map((player, i)=> <option key={i} value={i}>{player.name}</option>)}
                 </select>
                 {this.checkScores(player)}

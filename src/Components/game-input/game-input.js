@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { isValidElement } from 'react';
 import _ from 'lodash';
 import './game-input.css';
 
@@ -18,6 +18,7 @@ const resetSelection = () => {
     playerSelect.value = -1;
 }
 
+
 export class GameInput extends React.Component {
     constructor(props) {
         super(props);
@@ -32,6 +33,7 @@ export class GameInput extends React.Component {
         this.handleNameSelection = this.handleNameSelection.bind(this);
         this.handleScoreChange = this.handleScoreChange.bind(this);
         this.submit = this.submit.bind(this);
+        this.checkID = this.checkID.bind(this);
     }
     addPlayer() {
         console.log("Add Player Clicked");
@@ -94,6 +96,37 @@ export class GameInput extends React.Component {
         })
     }
 
+    checkID (event, i, si) {
+        const holeScore = parseInt(event.target.value);
+        const id = (i*18)+si;
+        const element = document.getElementById(id);
+        if (holeScore === 1) {
+            element.style.color = 'red';
+            element.style.borderStyle = 'double';
+            element.style.borderWidth = '6px';
+            element.style.borderColor = 'red';
+            element.style.borderRadius = '50%';
+            return
+        } else if (holeScore < 4) {
+            element.style.color = 'red';
+            element.style.borderStyle = 'none';
+            element.style.borderRadius = '20%';
+            return
+        } else if (holeScore === 6) {
+            element.style.color = 'blue';
+            element.style.borderStyle = 'double';
+            element.style.borderWidth = '6px';
+            element.style.borderColor = 'teal';
+            element.style.borderRadius = '50%';
+            return
+        } else {
+            element.style.color = 'blue';
+            element.style.borderStyle = 'none';
+            element.style.borderRadius = '20%';
+            return
+        }
+    }
+
     submit() {
         const isLessThanOne = element => element < 1;
         const isMoreThanSix = element => element > 6;
@@ -146,10 +179,13 @@ export class GameInput extends React.Component {
                                     return (
                                         <td key={si}>
                                             <input 
-                                                id="score-input-box" 
-                                                type="number" 
+                                                class="score-input-box"
+                                                id={(i*18)+si} 
                                                 value={score || ""} 
-                                                onChange={event => this.handleScoreChange(event, i, si)}/>
+                                                onChange={event => {
+                                                    this.handleScoreChange(event, i, si);
+                                                    this.checkID(event, i, si)
+                                                }}/>
                                         </td>
                                     )
                                  })}
@@ -168,6 +204,7 @@ export class GameInput extends React.Component {
                     onClick={()=> {this.submit()}}>
                     Submit Scores
                 </button>
+                <p>{this.props.scoresConfirmation}</p>
             </div>
         )
     }

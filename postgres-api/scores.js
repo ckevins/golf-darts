@@ -30,12 +30,18 @@ scoresRouter.post('/', (req, res, next) => {
                             client.query(postScores)
                                 .catch(error => console.error(error.stack));
                         });
+                        //when response sent here, only first player's state refreshes
                     })
-                    .catch(error => console.error(error.stack));
+                    //when response sent here, only first player's state refreshes
+                    .then(()=>{
+                        console.log('Scores submitted');
+                        res.status(201).send();
+                    })
+                    .catch(error => console.error(error.stack));  
             })
-            console.log('Scores Submitted');
-            res.status(201).send();
+            //when response sent here, nobody refreshes
         })
+        //when response sent here, nobody refreshes
         .catch(error => console.error(error.stack));
 })
 
