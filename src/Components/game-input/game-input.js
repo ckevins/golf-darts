@@ -1,4 +1,4 @@
-import React, { isValidElement } from 'react';
+import React from 'react';
 import _ from 'lodash';
 import './game-input.css';
 
@@ -179,7 +179,7 @@ export class GameInput extends React.Component {
                                     return (
                                         <td key={si}>
                                             <input 
-                                                class="score-input-box"
+                                                className="score-input-box"
                                                 id={(i*18)+si} 
                                                 value={score || ""} 
                                                 onChange={event => {

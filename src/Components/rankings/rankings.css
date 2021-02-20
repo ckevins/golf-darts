@@ -1,0 +1,20 @@
+.rankings-table {
+    width: 80%;
+    height: auto;
+    padding: 10px;
+}
+
+table, th, td {
+    border: solid white 1px;
+    border-collapse:separate;
+}
+
+th {
+    font-size: 2em;
+    height: 50px;
+}
+
+td {
+    font-size: 2em;
+    height: 50px;
+}

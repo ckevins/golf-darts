@@ -83,7 +83,7 @@ export class ScoreSheets extends React.Component {
         return (
             <div className="score-sheet-div">
                 <h2>Statistics</h2>
-                <label className="select" for="player-select">Team:</label>
+                <label className="select">Team:</label>
                 <br></br>
                 <select name="players" id="score-sheet-player-select" onChange={this.selectPlayer} value={this.state.selection}>
                     <option value={-1}>--Choose a team--</option>

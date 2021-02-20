@@ -12,6 +12,7 @@ import codyEvinsLogo from './cody-evins-logo-name.png';
 import { GameInput } from '../game-input/game-input';
 import { ScoreSheets } from '../score-sheets/score-sheets';
 import { CreatePlayer } from '../create-player/create-player';
+import { Rankings } from '../rankings/rankings';
 
 const api = 'postgresApi';
 
@@ -153,7 +154,8 @@ class App extends React.Component {
                   className="score-sheet"/>
               </Route>
               <Route path='/rankings'>
-                  {/* rankings */}
+                <Rankings 
+                  availablePlayers={this.state.availablePlayers}/>
               </Route>
               <Route path='/'>
                 <GameInput 
