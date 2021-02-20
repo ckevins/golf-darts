@@ -46,6 +46,12 @@ h3 {
   font-size: 3em;
 }
 
+h4 {
+  color: white;
+  font-family: Oswald, sans-serif;
+  font-size: 2em;
+}
+
 p {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

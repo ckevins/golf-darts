@@ -15,10 +15,6 @@ import { CreatePlayer } from '../create-player/create-player';
 
 const api = 'postgresApi';
 
-let scoresConfirmation = '';
-
-let teamConfirmation = '';
-let teamMessage = '';
 
 class App extends React.Component {
   constructor(props) {
@@ -66,8 +62,13 @@ class App extends React.Component {
       body: JSON.stringify(players)
     })
     .then(() => {
+      document.getElementById('scores-confirmation').innerHTML = `Scores submitted!`;
       this.getAllPlayers();
-      scoresConfirmation = `Scores submitted!`
+    })
+    .then(()=>{
+      setTimeout(function() {
+        document.getElementById('scores-confirmation').innerHTML = '';
+      }, 3500)
     })
   }
 
@@ -90,13 +91,23 @@ class App extends React.Component {
       .then(data => {
         console.log(`Team Created >>>> Name: ${newPlayer.name}`);
         this.getAllPlayers();
-        teamConfirmation = `Team Created: ${newPlayer.name}`;
-        teamMessage = `Your new team can now be found in all team selection menus.`;
+        document.getElementById('team-creation-confirmation').innerHTML = `Team Created: ${newPlayer.name}`;
+        document.getElementById('team-creation-message').innerHTML = `Your new team can now be found in all team selection menus.`;
+      })
+      .then(()=>{
+        setTimeout(function(){
+          document.getElementById('team-creation-confirmation').innerHTML = ``;
+          document.getElementById('team-creation-message').innerHTML = ``;  
+        }, 4000)
       })
       .catch(error => {
         console.error('This team name is probably taken.', error);
         document.getElementById('team-creation-confirmation').innerHTML = `Sorry! This team name is taken.`;
         document.getElementById('team-creation-message').innerHTML = `Please enter a new name and try again.`;
+        setTimeout(function(){
+          document.getElementById('team-creation-confirmation').innerHTML = ``;
+          document.getElementById('team-creation-message').innerHTML = ``; 
+        }, 4000)
       })
   } 
 
@@ -134,9 +145,7 @@ class App extends React.Component {
               <Route path='/create-a-team'>
                 <CreatePlayer 
                   className="create-player" 
-                  onPlayerCreation={this.createPlayer}
-                  teamConfirmation={teamConfirmation}
-                  teamMessage={teamMessage}/>
+                  onPlayerCreation={this.createPlayer}/>
               </Route>
               <Route path='/statistics'>
                 <ScoreSheets
@@ -149,8 +158,7 @@ class App extends React.Component {
               <Route path='/'>
                 <GameInput 
                   availablePlayers={this.state.availablePlayers} 
-                  onSubmit={this.submit}
-                  scoresConfirmation={scoresConfirmation}/>
+                  onSubmit={this.submit}/>
               </Route>
             </Switch>
           </div>

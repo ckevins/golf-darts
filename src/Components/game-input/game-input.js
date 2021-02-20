@@ -204,7 +204,7 @@ export class GameInput extends React.Component {
                     onClick={()=> {this.submit()}}>
                     Submit Scores
                 </button>
-                <p>{this.props.scoresConfirmation}</p>
+                <p id='scores-confirmation'>{this.props.scoresConfirmation}</p>
             </div>
         )
     }
