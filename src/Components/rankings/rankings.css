@@ -3,23 +3,37 @@
 }
 
 .rankings-table {
-    width: 80%;
+    width: 90%;
     height: auto;
     border: ridge white 6px;
-    border-collapse:collapse;
 }
 
 #rank-table-header {
-    font-size: 2em;
-    padding: 20px 10px;
     border: outset white 2px;
-    border-collapse: collapse;
+    height: 50px;
+}
+
+#rank-table-rank-column {
+    width: 50px;
+    border: outset white 2px;
+}
+
+#rank-table-team-column {
+    width: 300px;
+    border: outset white 2px;
 }
 
 #rank-table-data {
+    border: outset white 2px;
     font-family:Arial, Helvetica, sans-serif;
     font-size: 1.8em;
-    border: dashed white 1px;
     border-collapse: collapse;
+}
+
+#rank-number {
+    border: outset white 2px;
+    height: 50px;
+    width: 50px;
+    font-size: 2em;
 }
 

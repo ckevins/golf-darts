@@ -1,6 +1,5 @@
 import React from 'react';
 import './statistics.css';
-import _ from 'lodash';
 import { nums,
     numsSkipOne,
     getStat,
