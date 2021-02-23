@@ -112,7 +112,7 @@ export class GameInput extends React.Component {
         } else if (score === 6) {
             return {
                 color: 'blue',
-                border: 'double 6px teal',
+                border: 'double 6px blue',
                 borderRadius: '50%'
             }
         } else {
