@@ -72,6 +72,7 @@ table {
 .cody-evins-logo{
   display: flex;
   justify-content: right;
+  animation: fade 1.5s ease-in;
 }
 
 .App-header {
@@ -79,6 +80,29 @@ table {
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: 
+    fade 1.5s ease-in,
+    slide 1.5s ease-in;
+}
+
+.router {
+  animation: slow-fade 3s ease-in;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+}
+
+@keyframes slide {
+  from { transform:translate(0, -40px) }
+  to { transform:translate(0, 0) }
+}
+
+@keyframes slow-fade {
+  0% { opacity: 0}
+  33% {opacity: 0}
 }
 
 #logo {
@@ -116,4 +140,8 @@ button:active {
   background-color: #30144d;
   transform: translateY(4px);
   transition-duration: 0.15s;
+}
+
+#animation {
+  padding: 350px 0 400px;
 }

@@ -1,3 +1,7 @@
+.game-input {
+    animation: fade 0.9s ease-in;
+}
+
 .game-input table {
     width: 80%;
 }

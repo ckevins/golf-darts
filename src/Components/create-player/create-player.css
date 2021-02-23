@@ -6,3 +6,8 @@
     border-radius: 10px;
     padding: 0 10px;
 }
+
+.create-player {
+    animation: fade 0.9s ease-in;
+}
+

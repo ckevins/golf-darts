@@ -27,7 +27,7 @@ export class ScoreSheets extends React.Component {
             );
         } else if (this.state.selection > -1 && player.games !== []) {
             return (
-                <div>
+                <div className='printed-stats'>
                     <br></br>
                     <h4>Score Sheet</h4>
                     <table>

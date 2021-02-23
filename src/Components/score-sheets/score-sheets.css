@@ -27,6 +27,7 @@
 
 .score-sheet-div {
     padding-bottom: 140px;
+    animation: fade 0.9s ease-in;
 }
 
 .score-sheet-div table {
@@ -56,4 +57,8 @@
 #total {
     font-weight: bolder;
     border-left: dotted 5px white;
+}
+
+.printed-stats {
+    animation: fade 0.9s ease-in-out;
 }

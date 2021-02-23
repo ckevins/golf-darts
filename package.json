@@ -30,7 +30,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "nodemon server.js",
-    "dev": "node sqlite-migration.js && node sqlite-seed.js",
+    "sqlite": "node sqlite-migration.js && node sqlite-seed.js",
     "postgres": "node postgreSQL-migration.js && node postgreSQL-seed.js"
   },
   "eslintConfig": {

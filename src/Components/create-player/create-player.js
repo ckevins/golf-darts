@@ -22,7 +22,7 @@ export class CreatePlayer extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div className='create-player'>
                 <h2>Create a Team</h2>
                 <p>If your team name does not appear in the Team Select menu, you can create a new team here.</p> 
                 <label>New Team Name: </label>

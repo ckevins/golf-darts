@@ -8,6 +8,7 @@ import {
 import 'semantic-ui-css/semantic.min.css';
 import './app.css';
 import logo from './furmanLogo.png';
+import animation from './logo-animated.mp4';
 import codyEvinsLogo from './cody-evins-logo-name.png';
 import { GameInput } from '../game-input/game-input';
 import { ScoreSheets } from '../score-sheets/score-sheets';
@@ -21,6 +22,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      animation: true,
       availablePlayers: [
         {
           player_id: 0,
@@ -33,6 +35,8 @@ class App extends React.Component {
     this.submit = this.submit.bind(this);
     this.createPlayer = this.createPlayer.bind(this);
     this.getAllPlayers = this.getAllPlayers.bind(this);
+    this.renderAnimatedLogo = this.renderAnimatedLogo.bind(this);
+    this.clearAnimatedLogo = this.clearAnimatedLogo.bind(this);
   }
 
   //after App mounts, this function fetches players that are saved to the database and sets the state of available players.
@@ -51,6 +55,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getAllPlayers();
+    this.clearAnimatedLogo();
   }
 
   submit(players) {
@@ -69,7 +74,7 @@ class App extends React.Component {
     .then(()=>{
       setTimeout(function() {
         document.getElementById('scores-confirmation').innerHTML = '';
-      }, 3500)
+      }, 1000)
     })
   }
 
@@ -112,61 +117,86 @@ class App extends React.Component {
       })
   } 
 
-  render() {
+  renderAnimatedLogo() {
     return (
-      <div>
-        <div className="cody-evins-logo">
-          <img src={codyEvinsLogo} alt="Cody Evins Logo" id="CE"/>
-        </div>
-        <header className="App-header">
-          <img src={logo} alt="Furman Logo" id="logo"/>
-          <h1 id="page-title">
-            Furman Theatre Darts
-          </h1>
-        </header>
-        <Router>
-          <div className='router'>
-            <nav>
-              <ul>
-                <li>
-                  <Link to='/'>Play</Link>
-                </li>
-                <li>
-                  <Link to='/create-a-team'>Create a Team</Link>
-                </li>
-                <li>
-                  <Link to='/statistics'>Statistics</Link>
-                </li>
-                <li>
-                  <Link to='/rankings'>Rankings</Link>
-                </li>
-              </ul>
-            </nav>
-            <Switch>
-              <Route path='/create-a-team'>
-                <CreatePlayer 
-                  className="create-player" 
-                  onPlayerCreation={this.createPlayer}/>
-              </Route>
-              <Route path='/statistics'>
-                <ScoreSheets
-                  availablePlayers={this.state.availablePlayers} 
-                  className="score-sheet"/>
-              </Route>
-              <Route path='/rankings'>
-                <Rankings 
-                  availablePlayers={this.state.availablePlayers}/>
-              </Route>
-              <Route path='/'>
-                <GameInput 
-                  availablePlayers={this.state.availablePlayers} 
-                  onSubmit={this.submit}/>
-              </Route>
-            </Switch>
-          </div>
-        </Router>
+      <div id='animation'>
+        <video width='200' autoPlay>
+          <source src={animation} type='video/mp4'></source>
+        </video>
       </div>
     )
+  }
+
+  clearAnimatedLogo() {
+    setTimeout(() => {
+      this.setState( {animation: false} )
+    }, 5000);
+  }
+
+  render() {
+    const availablePlayers = this.state.availablePlayers;
+    if (this.state.animation === true) {
+      return (
+        <div>
+          {this.renderAnimatedLogo()}
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <div className="cody-evins-logo">
+            <img src={codyEvinsLogo} alt="Cody Evins Logo" id="CE"/>
+          </div>
+          <header className="App-header">
+            <img src={logo} alt="Furman Logo" id="logo"/>
+            <h1 id="page-title">
+              Furman Theatre Darts
+            </h1>
+          </header>
+          <Router>
+            <div className='router'>
+              <nav>
+                <ul>
+                  <li>
+                    <Link to='/'>Play</Link>
+                  </li>
+                  <li>
+                    <Link to='/create-a-team'>Create a Team</Link>
+                  </li>
+                  <li>
+                    <Link to='/statistics'>Statistics</Link>
+                  </li>
+                  <li>
+                    <Link to='/rankings'>Rankings</Link>
+                  </li>
+                </ul>
+              </nav>
+              <Switch>
+                <Route path='/create-a-team'>
+                  <CreatePlayer 
+                    className="create-player" 
+                    onPlayerCreation={this.createPlayer}/>
+                </Route>
+                <Route path='/statistics'>
+                  <ScoreSheets
+                    availablePlayers={availablePlayers} 
+                    className="score-sheet"/>
+                </Route>
+                <Route path='/rankings'>
+                  <Rankings 
+                    availablePlayers={availablePlayers}/>
+                </Route>
+                <Route path='/'>
+                  <GameInput 
+                    availablePlayers={availablePlayers} 
+                    onSubmit={this.submit}/>
+                </Route>
+              </Switch>
+            </div>
+          </Router>
+        </div>
+      )
+    }
   }
 }
 

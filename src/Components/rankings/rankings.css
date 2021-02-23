@@ -1,5 +1,6 @@
 .rankings {
     padding-bottom: 100px;
+    animation: fade 0.9s ease-in;
 }
 
 .rankings-table {
