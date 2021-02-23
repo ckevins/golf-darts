@@ -96,34 +96,31 @@ export class GameInput extends React.Component {
         })
     }
 
-    checkID (event, i, si) {
-        const holeScore = parseInt(event.target.value);
-        const id = (i*18)+si;
-        const element = document.getElementById(id);
-        if (holeScore === 1) {
-            element.style.color = 'red';
-            element.style.borderStyle = 'double';
-            element.style.borderWidth = '6px';
-            element.style.borderColor = 'red';
-            element.style.borderRadius = '50%';
-            return
-        } else if (holeScore < 4) {
-            element.style.color = 'red';
-            element.style.borderStyle = 'none';
-            element.style.borderRadius = '20%';
-            return
-        } else if (holeScore === 6) {
-            element.style.color = 'blue';
-            element.style.borderStyle = 'double';
-            element.style.borderWidth = '6px';
-            element.style.borderColor = 'teal';
-            element.style.borderRadius = '50%';
-            return
+    checkID (score) {
+        if (score === 1) {
+            return {
+                color: 'red',
+                border: 'double 6px red',
+                borderRadius: '50%'
+            }
+        } else if (score < 4) {
+            return {
+                color: 'red',
+                border: 'none',
+                borderRadius: '20%'
+            }
+        } else if (score === 6) {
+            return {
+                color: 'blue',
+                border: 'double 6px teal',
+                borderRadius: '50%'
+            }
         } else {
-            element.style.color = 'blue';
-            element.style.borderStyle = 'none';
-            element.style.borderRadius = '20%';
-            return
+            return {
+                color: 'blue',
+                border: 'none',
+                borderRadius: '20%'
+            }
         }
     }
 
@@ -181,6 +178,7 @@ export class GameInput extends React.Component {
                                             <input 
                                                 className="score-input-box"
                                                 id={(i*18)+si} 
+                                                style = {this.checkID(score)}
                                                 value={score || ""} 
                                                 onChange={event => {
                                                     this.handleScoreChange(event, i, si);
@@ -204,7 +202,7 @@ export class GameInput extends React.Component {
                     onClick={()=> {this.submit()}}>
                     Submit Scores
                 </button>
-                <p id='scores-confirmation'>{this.props.scoresConfirmation}</p>
+                <p id='scores-confirmation'>{this.props.submitMessage}</p>
             </div>
         )
     }

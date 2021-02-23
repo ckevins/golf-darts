@@ -109,7 +109,18 @@ export class Rankings extends React.Component {
                     reds: getStat(player.games, 'reds record')[0]
                 }
             } else {
-                return
+                return {
+                    name: player.name,
+                    gamesPlayed: 0,
+                    average: Number.POSITIVE_INFINITY,
+                    holeAverage: Number.POSITIVE_INFINITY,
+                    best: Number.POSITIVE_INFINITY,
+                    worst: Number.POSITIVE_INFINITY,
+                    under: 0,
+                    over: 0,
+                    ones: 0,
+                    reds: 0
+                }
             }
         });
         const sortedByAvg = players.sort(function(a,b) {
@@ -140,10 +151,10 @@ export class Rankings extends React.Component {
                                 <th id='rank-number'>{index +1}</th>
                                 <td id='rank-table-data'>{player.name}</td>
                                 <td id='rank-table-data'>{player.gamesPlayed}</td>
-                                <td id='rank-table-data'>{player.average}</td>
-                                <td id='rank-table-data'>{player.holeAverage}</td>
-                                <td id='rank-table-data'>{player.best}</td>
-                                <td id='rank-table-data'>{player.under}%</td>
+                                <td id='rank-table-data'>{player.average === Number.POSITIVE_INFINITY ? 'N/A' : player.average}</td>
+                                <td id='rank-table-data'>{player.holeAverage === Number.POSITIVE_INFINITY ? 'N/A' : player.holeAverage}</td>
+                                <td id='rank-table-data'>{player.best === Number.POSITIVE_INFINITY ? 'N/A' : player.best}</td>
+                                <td id='rank-table-data'>{player.under === Number.POSITIVE_INFINITY ? 'N/A' : player.under}%</td>
                                 <td id='rank-table-data'>{player.ones}</td>
                                 <td id='rank-table-data'>{player.reds}</td>
                             </tr>

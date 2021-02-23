@@ -72,7 +72,7 @@ table {
 .cody-evins-logo{
   display: flex;
   justify-content: right;
-  animation: fade 1.5s ease-in;
+  animation: slow-fade 3s ease-in;
 }
 
 .App-header {

@@ -29,8 +29,8 @@ export class CreatePlayer extends React.Component {
                 <br></br>
                 <input type="text" name="name" id="new-player-name" onChange={this.handleChange}></input>
                 <button onClick={this.createPlayer}>Create Team</button>
-                <p id='team-creation-confirmation'>{this.props.teamConfirmation}</p>
-                <p id='team-creation-message'>{this.props.teamMessage}</p>
+                <p>{this.props.teamConfirmation}</p>
+                <p>{this.props.teamMessage}</p>
             </div>
         )
     }

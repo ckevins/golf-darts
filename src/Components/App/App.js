@@ -23,6 +23,9 @@ class App extends React.Component {
     super(props);
     this.state = {
       animation: true,
+      teamConfirmation: '',
+      teamMessage: '',
+      submitMessage: '',
       availablePlayers: [
         {
           player_id: 0,
@@ -35,8 +38,8 @@ class App extends React.Component {
     this.submit = this.submit.bind(this);
     this.createPlayer = this.createPlayer.bind(this);
     this.getAllPlayers = this.getAllPlayers.bind(this);
-    this.renderAnimatedLogo = this.renderAnimatedLogo.bind(this);
-    this.clearAnimatedLogo = this.clearAnimatedLogo.bind(this);
+    // this.renderAnimatedLogo = this.renderAnimatedLogo.bind(this);
+    // this.clearAnimatedLogo = this.clearAnimatedLogo.bind(this);
   }
 
   //after App mounts, this function fetches players that are saved to the database and sets the state of available players.
@@ -55,7 +58,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getAllPlayers();
-    this.clearAnimatedLogo();
+    // this.clearAnimatedLogo();
   }
 
   submit(players) {
@@ -68,13 +71,13 @@ class App extends React.Component {
       body: JSON.stringify(players)
     })
     .then(() => {
-      document.getElementById('scores-confirmation').innerHTML = `Scores submitted!`;
       this.getAllPlayers();
+      this.setState( {submitMessage: 'Scores submitted!'} )
     })
     .then(()=>{
-      setTimeout(function() {
-        document.getElementById('scores-confirmation').innerHTML = '';
-      }, 1000)
+      setTimeout(()=> {
+        this.setState( {submitMessage: ''} )
+      }, 2000)
     })
   }
 
@@ -94,54 +97,56 @@ class App extends React.Component {
         }
         return response.json()
       })
-      .then(data => {
+      .then(() => {
         console.log(`Team Created >>>> Name: ${newPlayer.name}`);
         this.getAllPlayers();
-        document.getElementById('team-creation-confirmation').innerHTML = `Team Created: ${newPlayer.name}`;
-        document.getElementById('team-creation-message').innerHTML = `Your new team can now be found in all team selection menus.`;
+        this.setState( {
+          teamConfirmation: `Team Created: ${newPlayer.name}`,
+          teamMessage: `This team can now be found in all team selection menus.`
+        })
       })
       .then(()=>{
-        setTimeout(function(){
-          document.getElementById('team-creation-confirmation').innerHTML = ``;
-          document.getElementById('team-creation-message').innerHTML = ``;  
+        setTimeout(()=>{
+          this.setState( {
+            teamConfirmation: '',
+            teamMessage: ''  
+          })
         }, 4000)
       })
       .catch(error => {
         console.error('This team name is probably taken.', error);
-        document.getElementById('team-creation-confirmation').innerHTML = `Sorry! This team name is taken.`;
-        document.getElementById('team-creation-message').innerHTML = `Please enter a new name and try again.`;
-        setTimeout(function(){
-          document.getElementById('team-creation-confirmation').innerHTML = ``;
-          document.getElementById('team-creation-message').innerHTML = ``; 
-        }, 4000)
+        this.setState( {
+          teamConfirmation: `Sorry! This team name is taken.`,
+          teamMessage: `Please enter a new name and try again.`
+        } )
       })
   } 
 
-  renderAnimatedLogo() {
-    return (
-      <div id='animation'>
-        <video width='200' autoPlay>
-          <source src={animation} type='video/mp4'></source>
-        </video>
-      </div>
-    )
-  }
+  // renderAnimatedLogo() {
+  //   return (
+  //     <div id='animation'>
+  //       <video width='200' autoPlay>
+  //         <source src={animation} type='video/mp4'></source>
+  //       </video>
+  //     </div>
+  //   )
+  // }
 
-  clearAnimatedLogo() {
-    setTimeout(() => {
-      this.setState( {animation: false} )
-    }, 5000);
-  }
+  // clearAnimatedLogo() {
+  //   setTimeout(() => {
+  //     this.setState( {animation: false} )
+  //   }, 5000);
+  // }
 
   render() {
     const availablePlayers = this.state.availablePlayers;
-    if (this.state.animation === true) {
-      return (
-        <div>
-          {this.renderAnimatedLogo()}
-        </div>
-      )
-    } else {
+    // if (this.state.animation === true) {
+    //   return (
+    //     <div>
+    //       {this.renderAnimatedLogo()}
+    //     </div>
+    //   )
+    // } else {
       return (
         <div>
           <div className="cody-evins-logo">
@@ -175,7 +180,9 @@ class App extends React.Component {
                 <Route path='/create-a-team'>
                   <CreatePlayer 
                     className="create-player" 
-                    onPlayerCreation={this.createPlayer}/>
+                    onPlayerCreation={this.createPlayer}
+                    teamConfirmation={this.state.teamConfirmation}
+                    teamMessage={this.state.teamMessage}/>
                 </Route>
                 <Route path='/statistics'>
                   <ScoreSheets
@@ -189,14 +196,15 @@ class App extends React.Component {
                 <Route path='/'>
                   <GameInput 
                     availablePlayers={availablePlayers} 
-                    onSubmit={this.submit}/>
+                    onSubmit={this.submit}
+                    submitMessage={this.state.submitMessage}/>
                 </Route>
               </Switch>
             </div>
           </Router>
         </div>
       )
-    }
+    // }
   }
 }
 
