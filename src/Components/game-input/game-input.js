@@ -74,6 +74,13 @@ export class GameInput extends React.Component {
     }
 
     handleScoreChange(event, playerIndex, scoreIndex) {
+        const oneBoxDown = document.getElementById(((playerIndex+1)*18)+ scoreIndex);
+        const firstRowBox = document.getElementById(scoreIndex+1);
+        if(oneBoxDown) {
+            oneBoxDown.focus()
+        } else if( firstRowBox && firstRowBox.id !== "18"){
+            firstRowBox.focus()
+        } 
         this.setState(state => {
             return {
                 players: state.players.map((p, pi) => {

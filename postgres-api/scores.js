@@ -2,7 +2,6 @@ const scoresRouter = require('express').Router({mergeParams: true});
 const client = require('./client.js');
 
 
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 //CALLED BY SUBMIT BUTTON
 scoresRouter.post('/', (req, res, next) => {

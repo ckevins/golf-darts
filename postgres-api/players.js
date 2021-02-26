@@ -3,7 +3,6 @@ const scoresRouter = require('./scores');
 const client = require('./client.js');
 
 
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 client.connect(err => {
     if (err) {

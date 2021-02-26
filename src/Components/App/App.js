@@ -8,14 +8,21 @@ import {
 import 'semantic-ui-css/semantic.min.css';
 import './app.css';
 import logo from './furmanLogo.png';
-import animation from './logo-animated.mp4';
+// import animation from './logo-animated.mp4';
 import codyEvinsLogo from './cody-evins-logo-name.png';
 import { GameInput } from '../game-input/game-input';
 import { ScoreSheets } from '../score-sheets/score-sheets';
 import { CreatePlayer } from '../create-player/create-player';
 import { Rankings } from '../rankings/rankings';
 
+let url = '';
+const PORT = process.env.PORT || 4000;
 const api = 'postgresApi';
+if (PORT === process.env.PORT) {
+  url = ``
+} else {
+  url = `http://localhost:4000/${api}/players`
+}
 
 
 class App extends React.Component {
@@ -45,8 +52,10 @@ class App extends React.Component {
   //after App mounts, this function fetches players that are saved to the database and sets the state of available players.
   // availablePlayer: [{player_id: 1, name: 'Cody', scores: [[game1],[game2]]}]
 
+  
+
   getAllPlayers() {
-    fetch('http://localhost:4000/'+ api +'/players')
+    fetch(url)
       .then(response => response.json())
       .then(data => {
         if(data.players.length > 0) {
@@ -62,8 +71,8 @@ class App extends React.Component {
   }
 
   submit(players) {
-    const url = 'http://localhost:4000/'+ api +'/players/scores';
-    fetch (url, {
+    const submitURL = url + '/scores';
+    fetch (submitURL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -82,8 +91,8 @@ class App extends React.Component {
   }
 
   createPlayer(newPlayer) {
-    const url = 'http://localhost:4000/'+ api +'/players';
-    fetch (url, {
+    const createPlayerURL = url;
+    fetch (createPlayerURL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -182,22 +191,26 @@ class App extends React.Component {
                     className="create-player" 
                     onPlayerCreation={this.createPlayer}
                     teamConfirmation={this.state.teamConfirmation}
-                    teamMessage={this.state.teamMessage}/>
+                    teamMessage={this.state.teamMessage}
+                  />
                 </Route>
                 <Route path='/statistics'>
                   <ScoreSheets
                     availablePlayers={availablePlayers} 
-                    className="score-sheet"/>
+                    className="score-sheet"
+                  />
                 </Route>
                 <Route path='/rankings'>
                   <Rankings 
-                    availablePlayers={availablePlayers}/>
+                    availablePlayers={availablePlayers}
+                  />
                 </Route>
                 <Route path='/'>
                   <GameInput 
                     availablePlayers={availablePlayers} 
                     onSubmit={this.submit}
-                    submitMessage={this.state.submitMessage}/>
+                    submitMessage={this.state.submitMessage}
+                  />
                 </Route>
               </Switch>
             </div>
