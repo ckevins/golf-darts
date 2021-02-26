@@ -26,9 +26,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "api": "node server.js",
     "server": "nodemon server.js",
     "sqlite": "node sqlite-migration.js && node sqlite-seed.js",
     "postgres": "node postgreSQL-migration.js && node postgreSQL-seed.js"
