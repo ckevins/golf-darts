@@ -1,5 +1,5 @@
 import React from 'react';
-import { Statistics } from '../statistics-cases/statistics-cases';
+import { Statistics } from '../statistics/statistics';
 import {nums} from '../game-input/game-input';
 import './score-sheets.css';
 
