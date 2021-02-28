@@ -15,15 +15,8 @@ import { ScoreSheets } from '../score-sheets/score-sheets';
 import { CreatePlayer } from '../create-player/create-player';
 import { Rankings } from '../rankings/rankings';
 
-let url = '';
-const PORT = process.env.PORT || 4000;
 const api = 'postgresApi';
-if (PORT === process.env.PORT) {
-  url = `https://golf-darts.herokuapp.com/${api}/players`
-} else {
-  url = `http://localhost:4000/${api}/players`
-}
-
+let url = `/${api}/players`;
 
 class App extends React.Component {
   constructor(props) {
