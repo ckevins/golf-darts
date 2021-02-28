@@ -2,6 +2,10 @@
   height: 500px;
 }
 
+body {
+  background-color: #201547;
+}
+
 ul {
   height: 100px;
   display: flex;
