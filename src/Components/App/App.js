@@ -19,7 +19,7 @@ let url = '';
 const PORT = process.env.PORT || 4000;
 const api = 'postgresApi';
 if (PORT === process.env.PORT) {
-  url = ``
+  url = `https://golf-darts.herokuapp.com/${api}/players`
 } else {
   url = `http://localhost:4000/${api}/players`
 }

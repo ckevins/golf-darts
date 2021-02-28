@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const errorhandler = require('errorhandler');
 const cors = require('cors');
 const morgan = require('morgan');
+const path = require('path');
 const postgresApiRouter = require('./postgres-api/postgres-api');
 const sqliteApiRouter = require('./sqlite-api/sqlite-api');
 
@@ -17,6 +18,12 @@ app.use(bodyParser.json());
 app.use(errorhandler());
 app.use(cors());
 app.use(morgan('dev'));
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 app.use('/postgresApi', postgresApiRouter);
 app.use('/sqliteApi', sqliteApiRouter);
