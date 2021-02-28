@@ -21,12 +21,12 @@ app.use(morgan('dev'));
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-
 app.use('/postgresApi', postgresApiRouter);
 app.use('/sqliteApi', sqliteApiRouter);
+
+app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });  
 
 app.listen(PORT, () => {
     console.log(`Server is listening on Port ${PORT}.`);
