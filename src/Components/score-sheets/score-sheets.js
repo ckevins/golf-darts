@@ -1,61 +1,12 @@
 import React from 'react';
-import { Statistics } from '../statistics/statistics';
 import {nums} from '../game-input/game-input';
 import './score-sheets.css';
 
 export class ScoreSheets extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            selection: -1
-        };
-        this.selectPlayer = this.selectPlayer.bind(this);
-        this.checkScores = this.checkScores.bind(this);
         this.checkClass = this.checkClass.bind(this);
         this.checkTotalClass = this.checkTotalClass.bind(this);
-    }
-    selectPlayer(event) {
-        this.setState ({selection: event.target.value});
-    }
-    
-    checkScores(player) {
-        if (this.state.selection > -1 && player.games.length === 0) {
-            return (
-                <div>
-                    <message>This team does not have any submitted scores yet. Play some darts!</message>
-                </div>
-            );
-        } else if (this.state.selection > -1 && player.games !== []) {
-            return (
-                <div className='printed-stats'>
-                    <br></br>
-                    <h4>Score Sheet</h4>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>{player.name}</th>
-                                {nums.map(n=> <th key={n}>{n}</th>)}
-                                <th>Total</th>  
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {player.games.map((s,i)=>{
-                                return (
-                                    <tr key={i}>
-                                        <th id='game'>Game {i+1}</th>
-                                        {s.map((holeScore, i2) => <td key={i*18+i2} className={this.checkClass(holeScore)} id='score-cells'>{holeScore}</td>)}
-                                        <td className={this.checkTotalClass((s.reduce((a,b) => a + b)))} id='total' key={`${i} total`}>{s.reduce((a,b) => a + b)}</td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
-                    <Statistics player={player}/>
-                </div>
-            )
-        } else {
-            return <p>No team selected.</p>
-        }
     }
 
     checkClass (holeScore) {
@@ -79,17 +30,31 @@ export class ScoreSheets extends React.Component {
     }
 
     render() {
-        const player = this.props.availablePlayers[this.state.selection];
+        const player = this.props.player;
         return (
-            <div className="score-sheet-div">
-                <h2>Statistics</h2>
-                <label className="select">Team:</label>
+            <div className='printed-stats'>
                 <br></br>
-                <select name="players" id="score-sheet-player-select" onChange={this.selectPlayer} value={this.state.selection}>
-                    <option value={-1}>--Choose a team--</option>
-                    {this.props.availablePlayers.map((player, i)=> <option key={i} value={i}>{player.name}</option>)}
-                </select>
-                {this.checkScores(player)}
+                <h4>Score Sheet</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{player.name}</th>
+                            {nums.map(n=> <th key={n}>{n}</th>)}
+                            <th>Total</th>  
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {player.games.map((s,i)=>{
+                            return (
+                                <tr key={i}>
+                                    <th id='game'>Game {i+1}</th>
+                                    {s.map((holeScore, i2) => <td key={i*18+i2} className={this.checkClass(holeScore)} id='score-cells'>{holeScore}</td>)}
+                                    <td className={this.checkTotalClass((s.reduce((a,b) => a + b)))} id='total' key={`${i} total`}>{s.reduce((a,b) => a + b)}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
             </div>
         )
     }

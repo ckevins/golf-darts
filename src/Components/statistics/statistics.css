@@ -1,56 +1,72 @@
-#game-total-table {
-    width: 40%;
-    margin: 0 auto;
-}
-
-#game-total-table th {
-    font-size: 2em;
-    padding: 15px;
-    text-align: right;
-    width: 40%;
-}
-
-#game-total-table td {
-    font-size: 2em;
-    padding: 15px;
-}
-
-#all-holes-table {
-    width: 60%;
-    padding-top: 40px;
-}
-
-#all-holes-table-title {
+#score-sheet-player-select {
+    height: 60px;
+    width: 400px;
+    padding: 0 20px;
+    font-size: 2.5em;
     text-align: center;
-    column-span: all;
 }
 
-#all-holes-table th{
+#stats-select {
+    height: 60px;
+    width: 400px;
+    padding: 0 20px;
+    font-size: 2.5em;
+    text-align: center;
+}
+
+.red {
+    color: #e3322b;
+}
+
+.blue {
+    color: #aadeeb;
+}
+
+.one {
+    border-radius: 100%;
+    background: #e3322b;
+}
+
+.six {
+    border-radius: 100%;
+    background: #aadeeb;
+    color: #0011ad
+}
+
+.score-sheet-div {
+    padding-bottom: 140px;
+    animation: fade 0.9s ease-in;
+}
+
+.score-sheet-div table {
+    width: 80%;
+    padding: 30px;
+}
+
+.score-sheet-div th {
     font-size: 2em;
+    padding: 10px 0 10px 0;
 }
 
-#all-holes-table td {
+.score-sheet-div td {
     font-size: 2em;
     padding: 10px;
 }
 
-#rank-list-table {
-    width: 80%;
-    margin-top: 40px;
+#score-cells td {
+    height: 50px;
+    width: 50px;
 }
 
-#rank-list-table th {
-    font-size: 2em;
+#game {
+    border-right: dotted 5px white;
 }
 
-#rank-list-table td {
-    font-size: 2em;
-    padding-top: 10px;
+#total {
+    font-weight: bolder;
+    border-left: dotted 5px white;
 }
 
-#hole-select {
-    height: 80px;
-    width: 80px;
-    font-size: 2.5em;
-    text-align: center;
+.printed-stats {
+    animation: fade 0.9s ease-in-out;
 }

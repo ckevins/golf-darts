@@ -1,0 +1,56 @@
+#game-total-table {
+    width: 40%;
+    margin: 0 auto;
+}
+
+#game-total-table th {
+    font-size: 2em;
+    padding: 15px;
+    text-align: right;
+    width: 40%;
+}
+
+#game-total-table td {
+    font-size: 2em;
+    padding: 15px;
+}
+
+#all-holes-table {
+    width: 60%;
+    padding-top: 40px;
+}
+
+#all-holes-table-title {
+    text-align: center;
+    column-span: all;
+}
+
+#all-holes-table th{
+    font-size: 2em;
+}
+
+#all-holes-table td {
+    font-size: 2em;
+    padding: 10px;
+}
+
+#rank-list-table {
+    width: 80%;
+    margin-top: 40px;
+}
+
+#rank-list-table th {
+    font-size: 2em;
+}
+
+#rank-list-table td {
+    font-size: 2em;
+    padding-top: 10px;
+}
+
+#hole-select {
+    height: 80px;
+    width: 80px;
+    font-size: 2.5em;
+    text-align: center;
+}

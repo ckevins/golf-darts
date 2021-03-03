@@ -11,7 +11,7 @@ import logo from './furmanLogo.png';
 // import animation from './logo-animated.mp4';
 import codyEvinsLogo from './cody-evins-logo-name.png';
 import { GameInput } from '../game-input/game-input';
-import { ScoreSheets } from '../score-sheets/score-sheets';
+import { Statistics } from '../statistics/statistics';
 import { CreatePlayer } from '../create-player/create-player';
 import { Rankings } from '../rankings/rankings';
 
@@ -188,7 +188,7 @@ class App extends React.Component {
                   />
                 </Route>
                 <Route path='/statistics'>
-                  <ScoreSheets
+                  <Statistics
                     availablePlayers={availablePlayers} 
                     className="score-sheet"
                   />
