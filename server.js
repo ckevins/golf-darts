@@ -1,4 +1,6 @@
 const express = require('express');
+require('dotenv').config();
+console.log(process.env.DATABASE_URL);
 const bodyParser = require('body-parser');
 const errorhandler = require('errorhandler');
 const cors = require('cors');
@@ -6,6 +8,7 @@ const morgan = require('morgan');
 const path = require('path');
 const postgresApiRouter = require('./postgres-api/postgres-api');
 const sqliteApiRouter = require('./sqlite-api/sqlite-api');
+
 
 const app = express();
 

@@ -15,8 +15,7 @@ import { Statistics } from '../statistics/statistics';
 import { CreatePlayer } from '../create-player/create-player';
 import { Rankings } from '../rankings/rankings';
 
-const api = 'postgresApi';
-let url = `/${api}/players`;
+const url = `/postgresApi/players`;
 
 class App extends React.Component {
   constructor(props) {
